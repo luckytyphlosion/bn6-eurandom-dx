@@ -1,0 +1,14 @@
+*.exe
+*.dll
+*.gba
+*.sna
+*.sa*
+*.bps
+*.zip
+*.sym
+*.txt
+*.msg
+!tools/*
+out_patch/
+tools/floating/flipscfg.bin
+temp/
