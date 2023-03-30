@@ -95,3 +95,38 @@ ShuffleFolderSlice:
 @@done:
 	pop {r4-r6,pc}
 
+	; other version chips
+	.if IS_FALZAR == 1
+	import_chip_gfx_ptrs BASS, BassChipIcon, BassChipImage, BassChipPalette
+	import_chip_gfx_ptrs BIGHOOK, BigHookChipIcon, BigHookChipImage, BigHookChipPalette
+	import_chip_gfx_ptrs DELTARAY, DeltaRayChipIcon, DeltaRayChipImage, DeltaRayChipPalette
+	import_chip_gfx_ptrs COLFORCE, ColForceChipIcon, ColForceChipImage, ColForceChipPalette
+	import_chip_gfx_ptrs BUGRSWRD, BugRSwrdChipIcon, BugRSwrdChipImage, BugRSwrdChipPalette
+	.else
+	import_chip_gfx_ptrs BASSANLY, BassAnlyChipIcon, BassAnlyChipImage, BassAnlyChipPalette
+	import_chip_gfx_ptrs METRKNUK, MetrKnukChipIcon, MetrKnukChipImage, MetrKnukChipPalette
+	import_chip_gfx_ptrs CROSSDIV, CrossDivChipIcon, CrossDivChipImage, CrossDivChipPalette
+	import_chip_gfx_ptrs HUBBATC, HubBatcChipIcon, HubBatcChipImage, HubBatcChipPalette
+	import_chip_gfx_ptrs BGDTHTHD, BgDthThdChipIcon, BgDthThdChipImage, BgDthThdChipPalette
+	.endif
+
+	; just set SP chip damage this way
+	set_chip_attack_power PROTOMNSP, 290
+	set_chip_attack_power HEATMANSP, 260
+	set_chip_attack_power ELECMANSP, 210
+	set_chip_attack_power SLASHMNSP, 220
+	set_chip_attack_power ERASEMNSP, 210
+	set_chip_attack_power CHRGEMNSP, 130
+	set_chip_attack_power SPOUTMNSP, 120
+	set_chip_attack_power TMHKMANSP, 280
+	set_chip_attack_power TENGUMNSP, 160
+	set_chip_attack_power GRNDMANSP, 130
+	set_chip_attack_power DUSTMANSP, 200
+	set_chip_attack_power BLASTMNSP, 250
+	set_chip_attack_power DIVEMANSP, 270
+	set_chip_attack_power CRCUSMNSP, 55
+	set_chip_attack_power JUDGEMNSP, 190
+	set_chip_attack_power ELMNTMNSP, 240
+	set_chip_attack_power COLONELSP, 300
+
+	

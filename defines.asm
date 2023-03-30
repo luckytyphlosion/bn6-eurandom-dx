@@ -1,5 +1,7 @@
 
 	INPUT_ROM equ vequ("bn6f.gba", "bn6g.gba")
+	OTHER_VERSION_ROM equ vequ("bn6g.gba", "bn6f.gba")
+
 	OUTPUT_ROM equ vequ("bn6f-random-battle.gba", "bn6g-random-battle.gba")
 	.definelabel fspace, 0x087FE36C
 
@@ -26,6 +28,8 @@
 
 	.definelabel StartingMapAddr, 0x80050e4
 	.definelabel BaseNaviStatsTable, 0x80210DD
+	.definelabel ChipInfo, 0x8021da8
+	CHIP_INFO_LOAD_ADDR equ 0x21da8
 
 	.definelabel eCurRandomBattleFolder, 0x2003f50
 

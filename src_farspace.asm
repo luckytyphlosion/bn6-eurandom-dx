@@ -169,3 +169,97 @@ LoadNewGameSaveTextScript:
 ChooseRandomBattleFolderTextScript:
 	.import "temp/ChooseRandomBattleFolderTextScript.msg"
 
+	.align 4
+
+	.if IS_FALZAR == 1
+BassChipIcon:
+	import_chip_icon BASS
+
+BassChipImage:
+	import_chip_image BASS
+
+BassChipPalette:
+	import_chip_palette BASS
+
+BigHookChipIcon:
+	import_chip_icon BIGHOOK
+
+BigHookChipImage:
+	import_chip_image BIGHOOK
+
+BigHookChipPalette:
+	import_chip_palette BIGHOOK
+
+DeltaRayChipIcon:
+	import_chip_icon DELTARAY
+
+DeltaRayChipImage:
+	import_chip_image DELTARAY
+
+DeltaRayChipPalette:
+	import_chip_palette DELTARAY
+
+ColForceChipIcon:
+	import_chip_icon COLFORCE
+
+ColForceChipImage:
+	import_chip_image COLFORCE
+
+ColForceChipPalette:
+	import_chip_palette COLFORCE
+
+BugRSwrdChipIcon:
+	import_chip_icon BUGRSWRD
+
+BugRSwrdChipImage:
+	import_chip_image BUGRSWRD
+
+BugRSwrdChipPalette:
+	import_chip_palette BUGRSWRD
+
+	.else
+BassAnlyChipIcon:
+	import_chip_icon BASSANLY
+
+BassAnlyChipImage:
+	import_chip_image BASSANLY
+
+BassAnlyChipPalette:
+	import_chip_palette BASSANLY
+
+MetrKnukChipIcon:
+	import_chip_icon METRKNUK
+
+MetrKnukChipImage:
+	import_chip_image METRKNUK
+
+MetrKnukChipPalette:
+	import_chip_palette METRKNUK
+
+CrossDivChipIcon:
+	import_chip_icon CROSSDIV
+
+CrossDivChipImage:
+	import_chip_image CROSSDIV
+
+CrossDivChipPalette:
+	import_chip_palette CROSSDIV
+
+HubBatcChipIcon:
+	import_chip_icon HUBBATC
+
+HubBatcChipImage:
+	import_chip_image HUBBATC
+
+HubBatcChipPalette:
+	import_chip_palette HUBBATC
+
+BgDthThdChipIcon:
+	import_chip_icon BGDTHTHD
+
+BgDthThdChipImage:
+	import_chip_image BGDTHTHD
+
+BgDthThdChipPalette:
+	import_chip_palette BGDTHTHD
+	.endif

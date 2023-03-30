@@ -1,5 +1,5 @@
 @archive ChooseRandomBattleFolderTextScript
-@size 66
+@size 67
 
 /*
  0  1  2  3
@@ -195,6 +195,12 @@ script 1 mmbn6 {
       jump = continue
     ]
   clearMsg
+
+  soundDisableTextSFX
+  soundPlay
+    track = 0x68
+  soundEnableTextSFX
+
   """
   Cancelled choosing
   random battle folder.
@@ -376,6 +382,12 @@ script 2 mmbn6 {
       jump = continue
     ]
   clearMsg
+
+  soundDisableTextSFX
+  soundPlay
+    track = 0x68
+  soundEnableTextSFX
+
   """
   Cancelled choosing
   random battle folder.
@@ -557,6 +569,12 @@ script 3 mmbn6 {
       jump = continue
     ]
   clearMsg
+
+  soundDisableTextSFX
+  soundPlay
+    track = 0x68
+  soundEnableTextSFX
+
   """
   Cancelled choosing
   random battle folder.
@@ -738,6 +756,12 @@ script 4 mmbn6 {
       jump = continue
     ]
   clearMsg
+
+  soundDisableTextSFX
+  soundPlay
+    track = 0x68
+  soundEnableTextSFX
+
   """
   Cancelled choosing
   random battle folder.
@@ -919,6 +943,10 @@ script 5 mmbn6 {
       jump = continue
     ]
   clearMsg
+  soundDisableTextSFX
+  soundPlay
+    track = 0x68
+  soundEnableTextSFX
   """
   Cancelled choosing
   random battle folder.
@@ -932,6 +960,10 @@ script 6 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder A!
@@ -939,6 +971,13 @@ script 6 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 1
+  jump
+    target = 66
+
   end
 }
 
@@ -946,6 +985,10 @@ script 7 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder B!
@@ -953,6 +996,13 @@ script 7 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 2
+  jump
+    target = 66
+
   end
 }
 
@@ -960,6 +1010,10 @@ script 8 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder C!
@@ -967,6 +1021,13 @@ script 8 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 3
+  jump
+    target = 66
+
   end
 }
 
@@ -974,6 +1035,10 @@ script 9 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder D!
@@ -981,6 +1046,13 @@ script 9 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 4
+  jump
+    target = 66
+
   end
 }
 
@@ -988,6 +1060,10 @@ script 10 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder E!
@@ -995,6 +1071,13 @@ script 10 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 5
+  jump
+    target = 66
+
   end
 }
 
@@ -1002,6 +1085,10 @@ script 11 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder F!
@@ -1009,6 +1096,13 @@ script 11 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 6
+  jump
+    target = 66
+
   end
 }
 
@@ -1016,6 +1110,10 @@ script 12 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder G!
@@ -1023,6 +1121,13 @@ script 12 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 7
+  jump
+    target = 66
+
   end
 }
 
@@ -1030,6 +1135,10 @@ script 13 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder H!
@@ -1037,6 +1146,13 @@ script 13 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 8
+  jump
+    target = 66
+
   end
 }
 
@@ -1044,6 +1160,10 @@ script 14 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder J!
@@ -1051,6 +1171,13 @@ script 14 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 9
+  jump
+    target = 66
+
   end
 }
 
@@ -1058,6 +1185,10 @@ script 15 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder K!
@@ -1065,6 +1196,13 @@ script 15 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 10
+  jump
+    target = 66
+
   end
 }
 
@@ -1072,6 +1210,10 @@ script 16 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder L!
@@ -1079,6 +1221,13 @@ script 16 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 11
+  jump
+    target = 66
+
   end
 }
 
@@ -1086,6 +1235,10 @@ script 17 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder M!
@@ -1093,6 +1246,13 @@ script 17 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 12
+  jump
+    target = 66
+
   end
 }
 
@@ -1100,6 +1260,10 @@ script 18 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder N!
@@ -1107,6 +1271,13 @@ script 18 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 13
+  jump
+    target = 66
+
   end
 }
 
@@ -1114,6 +1285,10 @@ script 19 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder O!
@@ -1121,6 +1296,13 @@ script 19 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 14
+  jump
+    target = 66
+
   end
 }
 
@@ -1128,6 +1310,10 @@ script 20 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder P!
@@ -1135,6 +1321,13 @@ script 20 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 15
+  jump
+    target = 66
+
   end
 }
 
@@ -1142,6 +1335,10 @@ script 21 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder Q!
@@ -1149,6 +1346,13 @@ script 21 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 16
+  jump
+    target = 66
+
   end
 }
 
@@ -1156,6 +1360,10 @@ script 22 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder R!
@@ -1163,6 +1371,13 @@ script 22 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 17
+  jump
+    target = 66
+
   end
 }
 
@@ -1170,6 +1385,10 @@ script 23 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder S!
@@ -1177,6 +1396,13 @@ script 23 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 18
+  jump
+    target = 66
+
   end
 }
 
@@ -1184,6 +1410,10 @@ script 24 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder T!
@@ -1191,6 +1421,13 @@ script 24 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 19
+  jump
+    target = 66
+
   end
 }
 
@@ -1198,6 +1435,10 @@ script 25 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder U!
@@ -1205,6 +1446,13 @@ script 25 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 20
+  jump
+    target = 66
+
   end
 }
 
@@ -1212,6 +1460,10 @@ script 26 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder V!
@@ -1219,6 +1471,13 @@ script 26 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 21
+  jump
+    target = 66
+
   end
 }
 
@@ -1226,6 +1485,10 @@ script 27 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder W!
@@ -1233,6 +1496,13 @@ script 27 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 22
+  jump
+    target = 66
+
   end
 }
 
@@ -1240,6 +1510,10 @@ script 28 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder X!
@@ -1247,6 +1521,13 @@ script 28 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 23
+  jump
+    target = 66
+
   end
 }
 
@@ -1254,6 +1535,10 @@ script 29 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder Y!
@@ -1261,6 +1546,13 @@ script 29 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 24
+  jump
+    target = 66
+
   end
 }
 
@@ -1268,6 +1560,10 @@ script 30 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder Z!
@@ -1275,6 +1571,13 @@ script 30 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 25
+  jump
+    target = 66
+
   end
 }
 
@@ -1282,6 +1585,10 @@ script 31 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder a!
@@ -1289,6 +1596,13 @@ script 31 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 26
+  jump
+    target = 66
+
   end
 }
 
@@ -1296,6 +1610,10 @@ script 32 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder b!
@@ -1303,6 +1621,13 @@ script 32 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 27
+  jump
+    target = 66
+
   end
 }
 
@@ -1310,6 +1635,10 @@ script 33 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder c!
@@ -1317,6 +1646,13 @@ script 33 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 28
+  jump
+    target = 66
+
   end
 }
 
@@ -1324,6 +1660,10 @@ script 34 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder d!
@@ -1331,6 +1671,13 @@ script 34 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 29
+  jump
+    target = 66
+
   end
 }
 
@@ -1338,6 +1685,10 @@ script 35 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder e!
@@ -1345,6 +1696,13 @@ script 35 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 30
+  jump
+    target = 66
+
   end
 }
 
@@ -1352,6 +1710,10 @@ script 36 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder f!
@@ -1359,6 +1721,13 @@ script 36 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 31
+  jump
+    target = 66
+
   end
 }
 
@@ -1366,6 +1735,10 @@ script 37 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder g!
@@ -1373,6 +1746,13 @@ script 37 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 32
+  jump
+    target = 66
+
   end
 }
 
@@ -1380,6 +1760,10 @@ script 38 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder h!
@@ -1387,6 +1771,13 @@ script 38 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 33
+  jump
+    target = 66
+
   end
 }
 
@@ -1394,6 +1785,10 @@ script 39 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder i!
@@ -1401,6 +1796,13 @@ script 39 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 34
+  jump
+    target = 66
+
   end
 }
 
@@ -1408,6 +1810,10 @@ script 40 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder j!
@@ -1415,6 +1821,13 @@ script 40 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 35
+  jump
+    target = 66
+
   end
 }
 
@@ -1422,6 +1835,10 @@ script 41 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder k!
@@ -1429,6 +1846,13 @@ script 41 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 36
+  jump
+    target = 66
+
   end
 }
 
@@ -1436,6 +1860,10 @@ script 42 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder m!
@@ -1443,6 +1871,13 @@ script 42 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 37
+  jump
+    target = 66
+
   end
 }
 
@@ -1450,6 +1885,10 @@ script 43 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder n!
@@ -1457,6 +1896,13 @@ script 43 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 38
+  jump
+    target = 66
+
   end
 }
 
@@ -1464,6 +1910,10 @@ script 44 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder o!
@@ -1471,6 +1921,13 @@ script 44 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 39
+  jump
+    target = 66
+
   end
 }
 
@@ -1478,6 +1935,10 @@ script 45 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder p!
@@ -1485,6 +1946,13 @@ script 45 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 40
+  jump
+    target = 66
+
   end
 }
 
@@ -1492,6 +1960,10 @@ script 46 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder q!
@@ -1499,6 +1971,13 @@ script 46 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 41
+  jump
+    target = 66
+
   end
 }
 
@@ -1506,6 +1985,10 @@ script 47 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder r!
@@ -1513,6 +1996,13 @@ script 47 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 42
+  jump
+    target = 66
+
   end
 }
 
@@ -1520,6 +2010,10 @@ script 48 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder s!
@@ -1527,6 +2021,13 @@ script 48 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 43
+  jump
+    target = 66
+
   end
 }
 
@@ -1534,6 +2035,10 @@ script 49 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder t!
@@ -1541,6 +2046,13 @@ script 49 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 44
+  jump
+    target = 66
+
   end
 }
 
@@ -1548,6 +2060,10 @@ script 50 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder u!
@@ -1555,6 +2071,13 @@ script 50 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 45
+  jump
+    target = 66
+
   end
 }
 
@@ -1562,6 +2085,10 @@ script 51 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder v!
@@ -1569,6 +2096,13 @@ script 51 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 46
+  jump
+    target = 66
+
   end
 }
 
@@ -1576,6 +2110,10 @@ script 52 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder w!
@@ -1583,6 +2121,13 @@ script 52 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 47
+  jump
+    target = 66
+
   end
 }
 
@@ -1590,6 +2135,10 @@ script 53 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder x!
@@ -1597,6 +2146,13 @@ script 53 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 48
+  jump
+    target = 66
+
   end
 }
 
@@ -1604,6 +2160,10 @@ script 54 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder y!
@@ -1611,6 +2171,13 @@ script 54 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 49
+  jump
+    target = 66
+
   end
 }
 
@@ -1618,6 +2185,10 @@ script 55 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder z!
@@ -1625,6 +2196,13 @@ script 55 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 50
+  jump
+    target = 66
+
   end
 }
 
@@ -1632,6 +2210,10 @@ script 56 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder 0!
@@ -1639,6 +2221,13 @@ script 56 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 51
+  jump
+    target = 66
+
   end
 }
 
@@ -1646,6 +2235,10 @@ script 57 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder 1!
@@ -1653,6 +2246,13 @@ script 57 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 52
+  jump
+    target = 66
+
   end
 }
 
@@ -1660,6 +2260,10 @@ script 58 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder 2!
@@ -1667,6 +2271,13 @@ script 58 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 53
+  jump
+    target = 66
+
   end
 }
 
@@ -1674,6 +2285,10 @@ script 59 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder 3!
@@ -1681,6 +2296,13 @@ script 59 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 54
+  jump
+    target = 66
+
   end
 }
 
@@ -1688,6 +2310,10 @@ script 60 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder 4!
@@ -1695,6 +2321,13 @@ script 60 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 55
+  jump
+    target = 66
+
   end
 }
 
@@ -1702,6 +2335,10 @@ script 61 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder 5!
@@ -1709,6 +2346,13 @@ script 61 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 56
+  jump
+    target = 66
+
   end
 }
 
@@ -1716,6 +2360,10 @@ script 62 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder 6!
@@ -1723,6 +2371,13 @@ script 62 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 57
+  jump
+    target = 66
+
   end
 }
 
@@ -1730,6 +2385,10 @@ script 63 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder 7!
@@ -1737,6 +2396,13 @@ script 63 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 58
+  jump
+    target = 66
+
   end
 }
 
@@ -1744,6 +2410,10 @@ script 64 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder 8!
@@ -1751,6 +2421,13 @@ script 64 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 59
+  jump
+    target = 66
+
   end
 }
 
@@ -1758,6 +2435,10 @@ script 65 mmbn6 {
   mugshotShow
     mugshot = MegaMan
   msgOpen
+  soundDisableTextSFX
+  soundPlay
+    track = 386
+  soundEnableTextSFX
   """
   Chose Random Battle
   Folder 9!
@@ -1765,5 +2446,28 @@ script 65 mmbn6 {
   keyWait
     any = false
   clearMsg
+
+  storeTimer
+    timer = 0
+    value = 60
+  jump
+    target = 66
+
+  end
+}
+
+script 66 mmbn6 {
+  mugshotShow
+    mugshot = MegaMan
+  msgOpen
+  """
+  Remember to set reg
+  and tag before the
+  match!
+  """
+  keyWait
+    any = false
+  clearMsg
+
   end
 }
