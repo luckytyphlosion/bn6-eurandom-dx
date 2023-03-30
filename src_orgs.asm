@@ -36,11 +36,11 @@
 	.org PatchCanJackIn
 	b CanJackIn_Failure
 
-	.org PatchMainMapLoop
-	ldr r0, =Hook_PatchMainMapLoop|1
-	bx r0
-	.pool
-	nop
+; 	.org PatchMainMapLoop
+; 	ldr r0, =Hook_PatchMainMapLoop|1
+; 	bx r0
+; 	.pool
+; 	nop
 Hook_PatchMainMapLoop_Return:
 
 	.org PatchInitNewGameData
@@ -52,6 +52,9 @@ Hook_PatchMainMapLoop_Return:
 	b PatchInitNewGameData_Continue
 	.endarea
 
+	.org LButtonCutsceneScriptAddr
+	cs_jump PatchLButtonCutsceneScript
+
 	; == stat stuff ==
 	.org PatchLoadBaseNaviHP
 	mov r0, 2000 >> 4
@@ -59,39 +62,36 @@ Hook_PatchMainMapLoop_Return:
 
 	.org PatchLoadOtherBaseNaviStats
 	.area 0x8013bbc - 0x8013b90
-	; enable super armor and airshoes, set giga level to 1, set b pwr atk to charge shot
-	mov r0, 1
-	mov r1, oNaviStats_SuperArmor 
-	strb r0, [r7,r1]
-	strb r0, [r7,oNaviStats_AirShoes]
-	strb r0, [r7,oNaviStats_UnderShirt]
-	strb r0, [r7,oNaviStats_GigaLevel]
-	strb r0, [r7,oNaviStats_BPwrAtk]
+	ldr r0, =Hook_PatchLoadOtherBaseNaviStats|1
+	bx r0
+	.pool
 
-	; disable float shoes, fstbarr, no a pwr atk
-	mov r0, 0
-	strb r0, [r7,oNaviStats_FloatShoes]
-	strb r0, [r7,oNaviStats_FstBarr]
-	strb r0, [r7,oNaviStats_APwrAtk]
-
-	; set mega level to 5
-	mov r0, 5
-	strb r0, [r7,oNaviStats_MegaLevel]
-
-	; set cust level to 8
-	mov r0, 8
-	strb r0, [r7,oNaviStats_CustomLevel]
-
-	; set atk to atk4 (starts from 0)
-	mov r0, 3
-	strb r0, [r7,oNaviStats_Attack]
-
-	; set speed and charge to 4
-	mov r0, 4
-	strb r0, [r7,oNaviStats_Speed]
-	strb r0, [r7,oNaviStats_Charge]
-	b LoadOtherBaseNaviStats_StartingAtBLeftAbility
 	.endarea
 
 	.org BaseNaviStatsTable+10
 	.byte 0x3b ; shield
+
+	; unbiased shuffling
+	.org PatchShuffleFolderSlice
+ShuffleFolderSlice:
+	push {r4-r6,lr}
+	sub r4, r1, 1
+	beq @@done
+@@loop:
+	push {r0}
+	bl GetPositiveSignedRNG1
+	add r1, r4, 1
+	swi 6 ; r1 = rand() % (r1 + 1)
+	pop {r0}
+
+	add r1, r1, r1
+	add r3, r4, r4
+	ldrh r5, [r0,r1]
+	ldrh r6, [r0,r3]
+	strh r6, [r0,r1]
+	strh r5, [r0,r3]
+	sub r4, 1
+	bne @@loop
+@@done:
+	pop {r4-r6,pc}
+

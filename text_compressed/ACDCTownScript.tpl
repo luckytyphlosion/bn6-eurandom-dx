@@ -3,6 +3,7 @@
 
 script 0 mmbn6 {
   msgOpen
+  itemGiveAllChips
   """
   Welcome to the BN6
   Random Battle patch!

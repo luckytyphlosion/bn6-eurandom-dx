@@ -13,6 +13,7 @@
 	.definelabel oNaviStats_AirShoes, 0x1c
 	.definelabel oNaviStats_UnderShirt, 0x1d
 	.definelabel oNaviStats_SuperArmor, 0x23
+	.definelabel oNaviStats_ChipShuffle, 0x60
 
 	.definelabel GROUP_ACDC_TOWN, 0x0
 	.definelabel MAP_ACDC_TOWN, 0x0
@@ -29,7 +30,7 @@
 	.definelabel OW_UP_LEFT, 7
 
 	.definelabel EVENT_402, 0x402
-	.definelabel EVENT_403, 0x403
+	.definelabel EVENT_403_TALKED_TO_MODE_NPC, 0x403
 
 	.definelabel EVENT_1900_NEVER_SET_IN_VANILLA, 0x1900
 	.definelabel EVENT_TRIGGERED_OLD_SAVE, 0x1901

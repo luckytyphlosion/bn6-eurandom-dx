@@ -36,6 +36,43 @@ Hook_PatchMainMapLoop:
 @@alreadyRanWarningMsg:
 	pop pc
 
+Hook_PatchLoadOtherBaseNaviStats:
+	; enable super armor and airshoes, set giga level to 1, set b pwr atk to charge shot
+	mov r0, 1
+	mov r1, oNaviStats_SuperArmor 
+	strb r0, [r7,r1]
+	strb r0, [r7,oNaviStats_AirShoes]
+	strb r0, [r7,oNaviStats_UnderShirt]
+	strb r0, [r7,oNaviStats_GigaLevel]
+	strb r0, [r7,oNaviStats_BPwrAtk]
+	mov r1, oNaviStats_ChipShuffle
+	strb r0, [r7,r1]
+
+	; disable float shoes, fstbarr, no a pwr atk
+	mov r0, 0
+	strb r0, [r7,oNaviStats_FloatShoes]
+	strb r0, [r7,oNaviStats_FstBarr]
+	strb r0, [r7,oNaviStats_APwrAtk]
+
+	; set mega level to 5
+	mov r0, 5
+	strb r0, [r7,oNaviStats_MegaLevel]
+
+	; set cust level to 8
+	mov r0, 8
+	strb r0, [r7,oNaviStats_CustomLevel]
+
+	; set atk to atk4 (starts from 0)
+	mov r0, 3
+	strb r0, [r7,oNaviStats_Attack]
+
+	; set speed and charge to 4
+	mov r0, 4
+	strb r0, [r7,oNaviStats_Speed]
+	strb r0, [r7,oNaviStats_Charge]
+	ldr r0, =LoadOtherBaseNaviStats_StartingAtBLeftAbility|1
+	bx r0
+
 	.pool
 
 ACDCTown_OnInitMapScript_NEW:
@@ -48,14 +85,10 @@ ACDCTown_OnInitMapScript_NEW:
 
 ACDCTown_ContinuousMapScript_NEW:
 	ms_end
-; 	ms_jump_if_flag_clear CS_VAR_IMM, EVENT_403, @@doNotStartBattle
-; 	ms_start_cutscene ACDCTown_StartTrainingModeCutsceneScript, 0x0
-; 	ms_clear_event_flag CS_VAR_IMM, EVENT_403
-; @@doNotStartBattle:
-; 	ms_jump_if_flag_clear CS_VAR_IMM, EVENT_404_TALKED_TO_MODE_NPC, @@notTalkedToModeNPC
+; 	ms_jump_if_flag_clear CS_VAR_IMM, EVENT_403_TALKED_TO_MODE_NPC, @@notTalkedToModeNPC
 ; 	ms_start_cutscene ACDCTown_SetTrainingModeCutsceneScript, 0x0
-; 	ms_clear_event_flag CS_VAR_IMM, EVENT_404_TALKED_TO_MODE_NPC
-; @@notTalkedToModeNPC:
+; 	ms_clear_event_flag CS_VAR_IMM, EVENT_403_TALKED_TO_MODE_NPC
+;@@notTalkedToModeNPC:
 ; 	ms_end
 
 ; ACDCTown_MegaManNPCScript:
@@ -73,6 +106,37 @@ ACDCTown_GiveRandomBattleItemsAndPrintMessage:
 	cs_give_item ITEM_TAGCHIP, 1
 	cs_wait_chatbox 0x80
 	cs_warp_cmd_8038040_2 0x0, MAP_GROUP_TRANSITION_TYPE_SAME_MAP_GROUP_TYPE, ACDCTown_CutsceneWarpData
+	cs_unlock_player_after_non_npc_dialogue_809e122
+	cs_end_for_map_reload_maybe_8037c64
+
+PatchLButtonCutsceneScript:
+	cs_lock_player_for_non_npc_dialogue_809e0b0
+	cs_nop_80377d0
+	cs_set_event_flag CS_VAR_IMM, 0x1731
+	cs_write_ow_player_fixed_anim_select_8037dac CS_VAR_IMM, 0x4
+	cs_decomp_text_archive ChooseRandomBattleFolderTextScript
+	cs_set_var 4, 0
+	cs_set_var 5, 0
+	cs_set_var 6, 0
+	cs_set_var 7, 0
+	cs_run_text_script CS_VAR_IMM, 0
+	cs_wait_chatbox 0x80
+; @@loop:
+; 	cs_wait_var_equal 8, 1 ; wait for cross to be selected
+; 	cs_jump_if_var_equal 9, 1, @@abortedCrossSelection
+; 	cs_call_native_with_return_value AddCrossToSelectedCrosses|1
+; 	cs_jump_if_var_equal 5, 5, @@allCrossesSelected
+; 	cs_jump @@loop
+; @@abortedCrossSelection:
+; 	cs_set_var 8, 0
+; 	cs_wait_chatbox 0x80
+; 	cs_jump @@finishCutscene
+; @@allCrossesSelected:
+; 	cs_wait_chatbox 0x80
+; 	cs_call_native_with_return_value WriteCrossesToCrossList|1
+; @@finishCutscene:
+	cs_ow_player_sprite_special_with_arg 0x4, CS_VAR_IMM, 0x4
+	cs_write_ow_player_fixed_anim_select_8037dac CS_VAR_IMM, 0x4
 	cs_unlock_player_after_non_npc_dialogue_809e122
 	cs_end_for_map_reload_maybe_8037c64
 
@@ -101,3 +165,7 @@ ACDCTownTextScript_NEW:
 	.align 4, 0
 LoadNewGameSaveTextScript:
 	.import "temp/LoadNewGameSaveTextScript.msg"
+
+ChooseRandomBattleFolderTextScript:
+	.import "temp/ChooseRandomBattleFolderTextScript.msg"
+

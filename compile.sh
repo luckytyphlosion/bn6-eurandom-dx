@@ -22,7 +22,7 @@ if [[ $? -ne 0 ]] ; then
 fi
 
 # Make patches
-#mkdir -p "out_patch/bn5_gate_redux/v1.2.0"
-#./tools/floating/flips.exe -c -b "bn5p.gba" "bn5p-link-navis-redux.gba" "out_patch/bn5_gate_redux/v1.2.0/BRBE_00.bps"
-#./tools/floating/flips.exe -c -b "bn5c.gba" "bn5c-link-navis-redux.gba" "out_patch/bn5_gate_redux/v1.2.0/BRKE_00.bps"
-#touch out_patch/bn5_gate_redux/info.toml
+mkdir -p "out_patch/bn6_random_battle/v0.0.1"
+./tools/floating/flips.exe -c -b "bn6f.gba" "bn6f-random-battle.gba" "out_patch/bn6_random_battle/v0.0.1/BR6E_00.bps"
+./tools/floating/flips.exe -c -b "bn6g.gba" "bn6g-random-battle.gba" "out_patch/bn6_random_battle/v0.0.1/BR5E_00.bps"
+touch out_patch/bn6_random_battle/info.toml
