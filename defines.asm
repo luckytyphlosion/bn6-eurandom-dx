@@ -17,7 +17,7 @@
 	; version-independent patch defines
 	.definelabel PatchLoadBaseNaviHP, 0x8013b80
 	.definelabel PatchLoadOtherBaseNaviStats, 0x8013b90
-	.definelabel LoadOtherBaseNaviStats_StartingAtBLeftAbility, 0x8013bbc
+	.definelabel LoadOtherBaseNaviStats_StartingAtBLeftAbility, 0x8013bb8
 	.definelabel PatchCheckWarps, 0x80058d0
 	.definelabel PatchMainMapLoop, 0x8005268
 	.definelabel PatchCanJackIn, 0x8034d34
