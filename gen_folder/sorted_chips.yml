@@ -1,0 +1,1145 @@
+# element: fire implies bonus: grass
+# element: aqua implies bonus: ice?
+# element: elec implies bonus: bubbled
+
+ranged:
+  - Cannon:
+      chips:
+        - Cannon ABC*, low
+        - HiCannon LMN*, medium
+        - M-Cannon RST*
+      effect: [flinchflash]
+      reliability: [immobilization]
+  - TankCan:
+      chips:
+        - TankCan1 AGR, medium
+        - TankCan2 LSV
+        - TankCan3 BMP
+      effect: [bigpush, flinchflash, cracked]
+      reliability: [immobilization, Wind, area]
+  - FireBrn:
+      chips:
+        - FireBrn1 FGH*, medium
+        - FireBrn2 STU
+        - FireBrn3 CDE
+      element: fire
+      effect: [flinchflash, cracked]
+      counter: [area]
+  - WideSht:
+      chips:
+        - WideSht PQR
+      element: aqua
+      effect: [flinchflash]
+  - TrnArrw:
+      chips:
+        - TrnArrw1 AFK
+        - TrnArrw2 GMZ
+        - TrnArrw3 MSY
+      element: aqua
+      effect: [flinchflash]
+      reliability: [ice, uninstall]
+  - BblStar:
+      chips:
+        - BblStar1 BET, medium
+        - BblStar2 CLV
+        - BblStar3 GRS
+      element: aqua
+      effect: [bubbled]
+      counter: [object]
+  - DolThdr:
+      chips:
+        - DolThdr1 AEQ
+        - DolThdr2 CLP
+        - DolThdr3 BRV
+      element: elec
+      effect: [flinchflash]
+  - ElcPuls1:
+      chips:
+        - ElcPuls1 JLS
+      element: elec
+      effect: [paralysis, flinching, invispierce]
+  - ElcPuls2:
+      chips:
+        - ElcPuls2 AEJ
+      element: elec
+      effect: [pull, flinching, invispierce]
+  - ElcPuls3:
+      chips:
+        - ElcPuls3 AJS
+      element: elec
+      effect: [bug, flinchflash, invispierce]
+  - RskyHny:
+      chips:
+        - RskyHny1 BGS, medium
+        - RskyHny2 CRV, medium
+        - RskyHny3 ADM
+      element: wood
+      bonus: [boosts, GrabBnsh, GrabRvng]
+  - RlngLog:
+      chips:
+        - RlngLog1 IKP, medium
+        - RlngLog2 EQZ
+        - RlngLog3 FNW
+      element: wood
+      effect: [flinching]
+      counter: [broken, object]
+  - MachGun:
+      chips:
+        - MachGun1 ART*, medium
+        - MachGun2 EGS
+        - MachGun3 BFM
+      element: cursor
+      effect: [flinching]
+      bonus: [immobilization, WhiCapsl, uninstall]
+  - HeatDrgn:
+      chips:
+        - HeatDrgn GRT
+      element: fire
+      effect: [flinchflash]
+  - ElecDrgn:
+      chips:
+        - ElecDrgn ALV
+      element: elec
+      effect: [cracked, flinchflash]
+  - AquaDrgn:
+      chips:
+        - AquaDrgn HPS
+      element: aqua
+      effect: [ice, flinchflash]
+      effectcounter: [broken]
+      bonus: [aqua]
+  - WoodDrgn:
+      chips:
+        - WoodDrgn GTV
+      element: wood
+      effect: [grass, flinchflash]
+      effectcounter: [broken]
+  - AirHocky:
+      chips:
+        - AirHocky LMN
+      element: break
+      effect: [flinching]
+      bonus: [immobilization, WhiCapsl, uninstall, area]
+      counter: [broken]
+  - FlshBom1_2:
+      chips:
+        - FlshBom1 JLQ*, low
+        - FlshBom2 GKR
+      effect: [paralysis, invispierce]      
+  - FlshBom3:
+      chips:
+        - FlshBom3 HPS
+      effect: [paralysis, blind, flinching, invispierce]
+  - CornSht:
+      chips:
+        - CornSht1 JKL, medium
+        - CornSht2 CDE
+        - CornSht3 PQR
+      element: wood
+      effect: [flinching, grass]
+      effectcounter: [broken]
+  - TrplShot:
+      chips:
+        - TrplShot JLV*
+      effect: [broken, flinching]
+      counter: [broken, object]
+  - VarSwrd:
+      chips:
+        - VarSwrd KVW
+      element: sword
+      effect: [flinchflash]
+  - WaveArm:
+      chips:
+        - WaveArm1 EFG, medium
+        - WaveArm2 LMN
+        - WaveArm3 RST
+      effect: [flinchflash]
+      counter: [broken]
+  - AuraHed:
+      chips:
+        - AuraHed1 BCD
+        - AuraHed2 DEF
+        - AuraHed3 FGH
+      element: break
+      effect: [flinchflash]
+      reliability: [immobilization]
+      counter: [area]
+  - SandWrm:
+      chips:
+        - SandWrm1 AGL
+        - SandWrm2 BRY
+        - SandWrm3 HJS
+      effect: [flinchflash]
+  - FireHit:
+      chips:
+        - FireHit1 DEF, low
+        - FireHit2 RST
+        - FireHit3 ABC
+      element: fire
+      effect: [flinchflash]
+      counter: [area]
+  - BurnSqr:
+      chips:
+        - BurnSqr1 HPV
+        - BurnSqr2 DMT
+        - BurnSqr3 EOZ
+      element: fire
+      effect: [flinchflash]
+      counter: [broken]
+  - Boomer:
+      chips:
+        - Boomer JKT
+        - HiBoomer BLV
+        - M-Boomer IMW
+      element: wood
+      effect: [flinching, grass]
+      bonus: [PanlGrab]
+      effectcounter: [broken]
+  - Lance:
+      chips:
+        - Lance ARW*
+      element: wood
+      effect: [pull]
+      reliability: [area]
+  - IronShl:
+      chips:
+        - IronShl1 JKL, medium
+        - IronShl2 CDE
+        - IronShl3 LMN
+      element: break
+      effect: [flinchflash]
+      counter: [broken]
+  - AirSpin:
+      chips:
+        - AirSpin2 ALT
+        - AirSpin3 NOT
+      element: wind
+      isobject: true
+      effect: [flinching]
+      bonus: [Tornado, immobilization, area, boosts]
+      counter: [broken]
+  - Magnum:
+      chips:
+        - Magnum FLW
+      element: cursor
+      effect: [flinchflash, broken]
+  - CircGun:
+      chips:
+        - CircGun PTV
+      element: cursor
+      effect: [flinchflash]
+      reliability: [area]
+      counter: [broken, area]
+  - Mine:
+      chips:
+        - Mine AST
+      effect: [flinchflash, invispierce]
+      counter: [broken, HubBatc]
+  - BlzrdBal:
+      chips:
+        - BlzrdBal HNT
+      element: aqua
+      effect: [flinchflash, objectremove]
+      bonus: [object]
+      counter: [broken]
+  - BigBomb:
+      chips:
+        - BigBomb OPV
+      effect: [flinchflash]
+      counter: [area, broken]
+  - Spreader:
+      chips:        
+        - Spreadr1 LMN*, low
+        - Spreadr2 ABC*, low
+        - Spreadr3 QRS*, medium
+  - YoYo:
+      chips:
+        - YoYo LMN*, medium
+      element2: sword
+      effect: [flinching]
+      reliability: [immobilization, WhiCapsl, uninstall]
+  - AquaNdl:
+      chips:
+        - AquaNdl3 ALU, medium
+      element: aqua
+      effect: [flinchflash]
+      reliability: [WhiCapsl, ice]
+  - StepSwrd:
+      chips:
+        - StepSwrd BLP, medium
+      element: sword
+      effect: [flinchflash]
+      counter: [area]
+  - DublShot:
+      chips:
+        - DublShot CRU*, medium
+      effect: [broken, flinching]
+      reliability: [Wind]
+      counter: [broken, object]
+  - AirSpin1:
+      chips:
+        - AirSpin1 FGR, medium
+      element: wind
+      isobject: true
+      effect: [flinching]
+      bonus: [immobilization, area]
+      counter: [broken]
+  - Thunder:
+      chips:
+        - Thunder BRS*, low
+      element: elec
+      effect: [flinching, paralysis]
+
+constrained:
+  - GunDelS:
+      chips:
+        - GunDelS1 CMT*, low
+        - GunDelS2 BER, medium
+        - GunDelS3 NQW
+      effect: [invispierce]
+      reliability: [immobilization, area]
+      counter: [area]
+  - AirRaid:
+      chips:
+        - AirRaid2 OTY, low
+        - AirRaid3 NUZ, medium
+      isobject: true
+      necessity: [boosts]
+      reliability: [WhiCapsl, immobilization]
+  - Sensor:
+      chips:
+        - Sensor1 JOW, low
+        - Sensor2 NUY, medium
+        - Sensor3 IKQ
+      element: elec
+      isobject: true
+      effect: [invispierce, paralysis, flinch]
+      reliability: [MagCoil, holy]
+      bonus: [bigpush, pull, conveyer]
+  - ColArmy:
+      chips:
+        - ColArmy BGR*, low
+      effect: [paralysis, flinch, objectremove]
+      necessity: [object]
+      reliability: [immobilization]
+  - Vulcan:
+      chips:
+        - Vulcan3 AGR, medium
+      effect: [flinching]
+      reliability: [immobilization, uninstall]
+      bonus: [boosts]
+  - DrilArm:
+      chips:
+        - DrilArm GMW, medium
+      element: break
+      effect: [flinching, smallpush]
+      reliability: [area]
+  - Tornado:
+      chips:
+        - Tornado LRT, medium
+      element: wind
+      effect: [flinching]
+      reliability: [immobilization]
+      bonus: [AirSpin2, AirSpin3, elementalpanel]
+  - Static:
+      chips:
+        - Static GSV, medium
+      element: wind
+      effect: [flinching]
+      reliability: [immobilization, bug]
+  - Sword:
+      chips:
+        - Sword HLS*, low
+        - WideSwrd HLS*, low
+  - LongSwrd:
+      chips:
+        - LongSwrd HLS*, medium
+        - LongBlde BMV
+      element: sword
+      effect: [flinchflash]
+      reliability: [immobilization, area]
+      counter: [area]
+  - WideBlde:
+      chips:
+        - WideBlde BRW, medium
+      element: sword
+      effect: [flinchflash]
+      reliability: [Fan, area]
+      counter: [area]
+  - FireSwrd:
+      chips:
+        - FireSwrd FOZ, medium
+      element: fire
+      element2: sword
+      effect: [flinchflash]
+      reliability: [Fan, area]
+      counter: [area]
+  - AquaSwrd:
+      chips:
+        - AquaSwrd AIY, medium
+      element: aqua
+      element2: sword
+      effect: [flinchflash]
+      reliability: [Fan, area]
+      counter: [area]
+  - ElecSwrd:
+      chips:
+        - ElecSwrd EKN, medium
+      element: elec
+      element2: sword
+      effect: [flinching, paralysis]
+      reliability: [Fan, area]
+      counter: [area]
+  - BambSwrd:
+      chips:
+        - BambSwrd HSW, medium
+      element: wood
+      element2: sword
+      effect: [flinching]
+      reliability: [Fan, area]
+      counter: [area]
+  - WindRack:
+      chips:
+        - WindRack FJR*, medium
+      element: wind
+      effect: [flinching, bigpush]
+      reliability: [Fan, area]
+      counter: [area]
+  - MoonBld:
+      chips:
+        - MoonBld AMT, medium
+      element: sword
+      effect: [flinchflash, bug]
+      reliability: [Fan, area]
+      counter: [area]
+  - LilBolr:
+      chips:
+        - LilBolr1 FKL, medium
+        - LilBolr2 EMV, medium
+        - LilBolr3 GSZ, medium
+      element: aqua
+      isobject: true
+      effect: [flinchflash]
+      reliability: [immobilization, invispierce, ice]
+  - GolmHit:
+      chips:
+        - GolmHit1 IKY, medium
+        - GolmHit2 DPU
+        - GolmHit3 HMV
+      element: break
+      effect: [flinchflash]
+      reliability: [Fan, area]
+      bonus: [VDoll]
+  - Rflectr:
+      chips:
+        - Rflectr2 BGY*, medium
+        - Rflectr3 EFO*
+  - TimeBom:
+      chips:
+        - TimeBom1 FGH, medium
+        - TimeBom2 CDE, medium
+        - TimeBom3 LMN
+      isobject: true
+      effect: [flinchflash]
+      reliability: [immobilization, ice]
+  - BlkBomb:
+      chips:
+        - BlkBomb BFO
+      element: fire
+      isobject: true
+      effect: [flinchflash]
+      necessity: [fire]
+      reliability: [immobilization, ice]
+  - MchnSwrd:
+      chips:
+        - MchnSwrd HLQ
+      element2: sword
+      effect: [flinchflash]
+      necessity: [paralysis]
+  - ElemSwrd:
+      chips:
+        - ElemSwrd JMU
+      element2: sword
+      effect: [flinchflash]
+      necessity: [elementalpanel]
+  - AssnSwrd:
+      chips:
+        - AssnSwrd NRY
+      element2: sword
+      effect: [flinchflash]
+      necessity: [paralysis, elementalpanel]
+  - Snake:
+      chips:
+        - Snake HML
+      effect: [flinchflash]
+      necessity: [broken]
+      bonus: [area]
+  - SumnBlk:
+      chips:
+        - SumnBlk1 EIP
+        - SumnBlk2 HOV
+        - SumnBlk3 WYZ
+      element2: sword
+      effect: [flinchflash]
+      necessity: [broken]
+
+pseudoMega:
+  - SuprVulc:
+      chips:
+        - SuprVulc V
+      effect: [flinching]
+      reliability: [immobilization, uninstall]
+      bonus: [boosts]
+  - NeoVari:
+      chips:
+        - NeoVari N
+      element: sword
+      effect: [flinching]
+      bonus: [area]
+  - Muramasa:
+      chips:
+        - Muramasa M
+      element: sword
+      effect: [flinchflash]
+      reliability: [immobilization, area]
+      counter: [area]
+  - NumbrBl:
+      chips:
+        - NumbrBl N
+      effect: [flinchflash]
+      bonus: [poison, bug]
+  - Meteors:
+      chips:
+        - Meteors R
+      effect: [flinchflash]
+      bonus: [area, boosts]
+  - JustcOne:
+      chips:
+        - JustcOne J
+      element: break
+      effect: [flinchflash, cracked]
+      counter: [area]
+  - Guardian:
+      chips:
+        - Guardian O
+      isobject: true
+      effect: [flinchflash, invispierce]
+      counter: [broken]
+
+nonAttacking:
+  - GrasSeed:
+      chips:
+        - GrasSeed AFS*
+      effect: [grass]
+      counter: [broken]
+  - IceSeed:
+      chips:
+        - IceSeed ALR*
+      effect: [ice]
+      bonus: [aqua]
+      counter: [broken]
+  - PoisSeed:
+      chips:
+        - PoisSeed HNP*
+      effect: [poison]
+      counter: [broken]
+  - Wind:
+      chips:
+        - Wind *
+      isobject: true
+      effect: [Wind]
+      bonus: [RockCube, area]
+      counter: [broken]
+  - Fan:
+      chips:
+        - Fan *
+      isobject: true
+      effect: [Fan]
+      bonus: [RockCube, area]
+      counter: [broken]
+  - RockCube:
+      chips:
+        - RockCube *
+      isobject: true
+      bonus: [TankCan1, TankCan2, TankCan3, WindRack]
+      counter: [broken, break]
+  - Fanfare:
+      chips:
+        - Fanfare PSZ*
+      isobject: true
+      effect: [invincible]
+      bonus: [RockCube, area]
+      counter: [broken]
+  - Discord:
+      chips:
+        - Discord AGS*
+      isobject: true
+      effect: [confusion]
+      bonus: [RockCube, area]
+      counter: [broken]
+  - Timpani:
+      chips:
+        - Timpani IOT*
+      isobject: true
+      effect: [timpani]
+      bonus: [RockCube, area]
+      counter: [broken]
+  - Silence:
+      chips:
+        - Silence BRW*
+      isobject: true
+      effect: [blind]
+      bonus: [RockCube, area]
+      counter: [broken]
+  - Recov:
+      chips:
+        - Recov50 CMP*, medium
+        - Recov80 HKV*, medium
+        - Recov120 FPS
+        - Recov150 JMT
+        - Recov200 IQZ
+        - Recov300 JOY
+      effect: [recovery]
+      counter: [antirecov]
+  - RecovLow:
+      chips:
+        - Recov10 ADL*, low
+        - Recov30 ELQ*, low
+      effect: [recoverylow]
+  - AreaGrab:
+      chips:
+        - PanlGrab *
+        - AreaGrab BFS*
+      effect: [area]
+      counter: [grabback]
+  - GrabBnsh:
+      chips:
+        - GrabBnsh BMS
+        - GrabRvng IQZ
+      effect: [grabback]
+      counter: [AntiDmg, Barr200, LifeAur]
+  - PnlRetrn:
+      chips:
+        - PnlRetrn *
+      effect: [panelspawn]
+  - Geddon:
+      chips:
+        - Geddon ALR*
+      effect: [broken]
+      counter: [panelspawn]
+  - HolyPanl:
+      chips:
+        - HolyPanl ABS*
+        - Snctuary Z
+      effect: [holy, panelspawn]
+      counter: [broken, cracked, ice, grass, poison, conveyer, area]
+  - FullCust:
+      chips:
+        - FullCust *
+  - WhiCapsl:
+      chips:
+        - WhiCapsl *
+      effect: [paralysis]
+  - Invisibl:
+      chips:
+        - Invisibl *
+      effect: [invisible]
+      counter: [invispierce]
+  - Barrier:
+      chips:
+        - Barr100 HOY, medium
+        - Barr200 KUW
+      effect: [barrier]
+      counter: [wind]
+      bonus: [holy]
+  - BblWrap:
+      chips:
+        - BblWrap IQZ
+      effect: [bblwrap]
+      counter: [wind, elec]
+      bonus: [BugBomb]
+  - LifeAur:
+      chips:
+        - LifeAur U
+      dimming: true
+      effect: [aura]
+      counter: [wind, aurabreak]
+      bonus: [holy]
+  - Uninstll:
+      chips:
+        - Uninstll GLR
+      effect: [uninstall]
+      counter: [HubBatc]
+      # necessity?
+  - AntiNavi:
+      chips:
+        - AntiNavi FLT*
+      dimming: true
+      effect: [antinavi, trap]
+  - AntiDmg:
+      chips:
+        - AntiDmg GRV*
+      element2: sword
+      dimming: true
+      effect: [antidmg, trap]
+  - AntiSwrd:
+      chips:
+        - AntiSwrd ARZ*
+      element: sword
+      dimming: true
+      effect: [antisword, trap]
+      necessity: [sword]
+  - ColorPt:
+      chips:
+        - ColorPt *
+        - DblPoint *
+      dimming: true
+      effect: [boosts]
+      bonus: [grabback]
+  - AtkPlus:
+      chips:
+        - Atk+10 *, low
+        - Atk+30 *
+      effect: [boosts]
+  - ElemTrap:
+      chips:
+        - ElemTrap GSU*
+      dimming: true
+      effect: [elemtrap, trap]
+      necessity: [fire, elec, aqua, wood]
+  - NaviPlus:
+      chips:
+        - Navi+20 *, medium
+      effect: [naviboosts]
+  - BusterUp:
+      chips:
+        - BusterUp *, medium
+  - AntiRecv:
+      chips:
+        - AntiRecv AFV*
+      dimming: true
+      effect: [antirecov, trap]
+      necessity: [recovery]
+      counter: [recoverylow]
+  - VDoll:
+      chips:
+        - VDoll FNS*
+      isobject: true
+      effect: [vdoll]
+      reliability: [immobilization, ice]
+      counter: [broken]
+  - Anubis:
+      chips:
+        - Anubis P, medium
+      dimming: true
+      isobject: true
+      effect: [anubis]
+      counter: [broken]
+  - ComingRd:
+      chips:
+        - ComingRd *, medium
+      dimming: true
+      effect: [conveyer, comingrd]
+  - GoingRd:
+      chips:
+        - GoingRd *, medium
+      dimming: true
+      effect: [conveyer, goingrd]
+  - FstGauge:
+      chips:
+        - FstGauge EMR*, medium
+      dimming: true
+      effect: [fstgauge]
+  - SloGauge:
+      chips:
+        - SloGauge ABG*, low
+      dimming: true
+      effect: [slogauge]
+      necessity: [BgDthThd, BugRSwrd]
+      counter: [fstgauge]
+  - MagCoil:
+      chips:
+        - MagCoil *
+      effect: [magcoil]
+      counter: [area]
+
+megaChips:
+  - Roll3:
+      chips:
+        - Roll3 R
+      effect: [flinchflash, recovery]
+      bonus: [boosts, naviboosts]
+  - ProtoMan:
+      chips:
+        - ProtoMan B*, medium
+        - ProtoMnEX B
+        - ProtoMnSP B
+      element: sword
+      effect: [flinchflash]
+      counter: [broken, object]
+  - HeatMan:
+      chips:
+        - HeatMan H*, medium
+        - HeatManEX H
+        - HeatManSP H
+      element: fire
+      effect: [flinchflash]
+      counter: [area, broken]
+  - ElecMan:
+      chips:
+        - ElecMan E*, medium
+        - ElecManEX E
+        - ElecManSP E
+      element: elec
+      effect: [flinchflash]
+      bonus: [object, area]
+      counter: [area]
+  - SlashMan:
+      chips:
+        - SlashMan S*, medium
+        - SlashMnEX S
+        - SlashMnSP S
+      element: sword
+      effect: [flinchflash]
+      bonus: [area]
+      counter: [broken]
+  - EraseMan:
+      chips:
+        - EraseMan K*
+        - EraseMnEX K
+        - EraseMnSP K
+      element: cursor
+      element2: break
+      effect: [flinching, paralysis, invispierce]
+      counter: [broken]
+  - ChargeMan:
+      chips:
+        - ChrgeMan C*, medium
+        - ChrgeMnEX C
+        - ChrgeMnSP C
+      element2: break
+      effect: [flinchflash]
+      reliability: [immobilization]
+      bonus: [area]
+      counter: [Wind, broken]
+  - SpoutMan:
+      chips:
+        - SpoutMan A*, medium
+        - SpoutMnEX A
+        - SpoutMnSP A
+      element: aqua
+      effect: [flinchflash]
+      counter: [broken, Fan]
+  - TomahawkMan:
+      chips:
+        - TmhkMan T*, medium
+        - TmhkManEX T
+        - TmhkManSP T
+      element: wood
+      element2: sword
+      effect: [flinching]
+      bonus: [area]
+      counter: [broken, area]
+  - TenguMan:
+      chips:
+        - TenguMan T*, medium
+        - TenguMnEX T
+        - TenguMnSP T
+      element: wind
+      effect: [flinchflash]
+  - GroundMan:
+      chips:
+        - GrndMan G*, medium
+        - GrndManEX G
+        - GrndManSP G
+      element: break
+      effect: [flinchflash]
+      bonus: [immobilization]
+      counter: [broken]
+  - DustMan:
+      chips:
+        - DustMan D*, medium
+        - DustManEX D
+        - DustManSP D
+      element2: break
+      effect: [flinchflash, objectremove]
+      bonus: [immobilization, object]
+      counter: [broken]
+  - BlastMan:
+      chips:
+        - BlastMan B*, medium
+        - BlastMnEX B
+        - BlastMnSP B
+      element: fire
+      effect: [flinchflash]
+  - DiveMan:
+      chips:
+        - DiveMan D*, medium
+        - DiveManEX D
+        - DiveManSP D
+      element: aqua
+      effect: [flinchflash]
+      counter: [broken]
+  - CircusMan:
+      chips:
+        - CrcusMnEX C, medium
+        - CrcusMnSP C
+      element2: break
+      effect: [flinchflash, invispierce]
+      reliability: [immobilization]
+      bonus: [boosts, naviboosts]
+      counter: [broken, area]
+  - JudgeMan:
+      chips:
+        - JudgeMan J*
+        - JudgeMnEX J
+        - JudgeMnSP J
+      element: elec
+      effect: [flinching, paralysis, invispierce, grabback]
+      counter: [broken]
+  - ElementMan:
+      chips:
+        - ElmntMan E*
+        - ElmntMnEX E
+        - ElmntMnSP E
+      element: elemental
+      effect: [flinchflash, panelspawn, ice, frozen, grass, broken]
+      counter: [broken]
+  - Colonel:
+      chips:
+        - Colonel C*, medium
+        - ColonelEX C
+        - ColonelSP C
+      element: sword
+      effect: [flinchflash]
+      counter: [broken]
+
+gigaChips:
+  - Bass:
+      chips:
+        - Bass F
+      dimming: true
+      effect: [flinchflash]
+      bonus: [boosts]
+      counter: [broken, area]
+  - BigHook:
+      chips:
+        - BigHook H
+      dimming: true
+      element: break
+      effect: [flinchflash]
+      counter: [area]
+  - DeltaRay:
+      chips:
+        - DeltaRay Z
+      dimming: true
+      element: sword
+      effect: [flinchflash]
+      counter: [broken, object]
+  - ColForce:
+      chips:
+        - ColForce Q
+      effect: [flinching, paralysis]
+      bonus: [area, boosts]
+      counter: [area, broken]
+  - BugRSwrd:
+      chips:
+        - BugRSwrd V
+      dimming: true
+      element: sword
+      effect: [flinchflash]
+      bonus: [slogauge, area]
+      counter: [grabback]
+  - BassAnly:
+      chips:
+        - BassAnly F
+      dimming: true
+      effect: [flinchflash]
+      counter: [broken]
+  - MetrKnuk:
+      chips:
+        - MetrKnuk N
+      dimming: true
+      effect: [flinchflash, cracked]
+      bonus: [area, boosts]
+      counter: [area]
+  - CrossDiv:
+      chips:
+        - CrossDiv D
+      dimming: true
+      effect: [flinchflash]
+      reliability: [immobilization]
+      counter: [broken]
+  - HubBatc:
+      chips:
+        - HubBatc J
+      dimming: true
+      effect: [hubbatch]
+      counter: [uninstall]
+  - BgDthThd:
+      chips:
+        - BgDthThd V
+      dimming: true
+      effect: [flinching, paralysis]
+      reliability: [area]
+      bonus: [immobilization, bubbled, uninstall]
+      counter: [area, invisible]
+
+programAdvances:
+  - GigaCan:
+      chips:
+        - medium: [true, Cannon A, Cannon B, Cannon C]
+        - high: [true, HiCannon L, HiCannon M, HiCannon N]
+        - high: [true, M-Cannon R, M-Cannon S, M-Cannon T]
+      effect: [flinchflash]
+      reliability: [area, immobilization]
+  - WideBrn:
+      chips:
+        - high: [true, FireBrn1 F, FireBrn1 G, FireBrn1 H]
+        - high: [FireBrn2 S, FireBrn2 T, FireBrn2 U]
+        - high: [FireBrn3 C, FireBrn3 D, FireBrn3 E]
+      element: fire
+      effect: [flinchflash, cracked]
+      counter: [area]
+  - FlmHook:
+      chips:
+        - high: [FireHit1 D, FireHit1 E, FireHit1 F]
+        - high: [FireHit2 R, FireHit2 S, FireHit2 T]
+        - high: [FireHit3 A, FireHit3 B, FireHit3 C]
+      element: fire
+      effect: [flinchflash]
+      counter: [area]
+  - PwrWave:
+      chips:
+        - high: [WaveArm1 E, WaveArm1 F, WaveArm1 G]
+        - high: [WaveArm2 L, WaveArm2 M, WaveArm2 N]
+        - high: [WaveArm3 R, WaveArm3 S, WaveArm3 T]
+      effect: [flinchflash]
+      counter: [broken]
+  - CornFsta:
+      chips:
+        - high: [CornSht1 J, CornSht1 K, CornSht1 L]
+        - high: [CornSht2 C, CornSht2 D, CornSht2 E]
+        - high: [CornSht3 P, CornSht3 Q, CornSht3 R]
+      dimming: true
+      element: wood
+      effect: [flinchflash, grass]
+      counter: [area]
+  - ParaShl:
+      chips:
+        - high: [IronShl1 J, IronShl1 K, IronShl1 L]
+        - high: [IronShl2 C, IronShl2 D, IronShl2 E]
+        - high: [IronShl3 L, IronShl3 M, IronShl3 N]
+      element: break
+      effect: [flinchflash]
+      reliability: [Fan]
+      counter: [broken]
+  - DestPuls:
+      chips:
+        - high: [ElcPuls1 J, ElcPuls2 J, ElcPuls3 J]
+      element: elec
+      effect: [flinching, paralysis, blind, bug]
+      reliability: [area]
+      bonus: [bubbled]
+      counter: [area]
+  - TimeBomPlus:
+      chips:
+        - high: [TimeBom1 F, TimeBom1 G, TimeBom1 H]
+        - high: [TimeBom2 C, TimeBom2 D, TimeBom2 E]
+        - high: [TimeBom3 L, TimeBom3 M, TimeBom3 N]
+      dimming: true
+      isobject: true
+      effect: [flinchflash]
+      reliability: [immobilization, ice]
+  - StreamHd:
+      chips:
+        - high: [AuraHed1 B, AuraHed1 C, AuraHed1 D]
+        - high: [AuraHed2 D, AuraHed2 E, AuraHed2 F]
+        - high: [AuraHed3 F, AuraHed3 G, AuraHed3 H]
+      element2: break
+      effect: [flinchflash]
+      reliability: [immobilization, uninstall]
+  - SuprSpr:
+      chips:
+        - medium: [WideSht P, WideSht Q, WideSht R]
+      element: aqua
+      effect: [flinchflash]
+  - H-Burst:
+      chips:
+        - high: [true, Spreadr1 L, Spreadr1 M, Spreadr1 N]
+        - high: [true, Spreadr2 A, Spreadr2 B, Spreadr2 C]
+        - high: [true, Spreadr3 Q, Spreadr3 R, Spreadr3 S]
+      effect: [paralysis]
+      reliability: [immobilization]
+  - LifeSrd:
+      chips:
+        - medium: [Sword *, WideSwrd *, LongSwrd *]
+        - medium: [Sword *, WideBlde B, LongBlde B]
+      element: sword
+      effect: [flinchflash]
+      reliability: [area]
+      counter: [area]
+  - GreatYo:
+      chips:
+        - high: [true, YoYo L, YoYo M, YoYo N]
+      element2: sword
+      effect: [flinching]
+  - PitHocky:
+      chips:
+        - low: [AirHocky L, AirHocky M, AirHocky N]
+      element: break
+      effect: [flinching]
+      necessity: [uninstall]
+      reliability: [immobilization, area]
+      counter: [area, broken]
+  - PoisPhar:
+      chips:
+        - low: [PoisSeed *, PoisSeed *, Anubis P]
+      isobject: true
+      dimming: true
+      effect: [anubis]
+      reliability: [area, holy]
+      counter: [broken]
+  - BodyGrd:
+      chips:
+        - medium: [AntiNavi *, AntiSwrd *, AntiDmg *]
+      element2: sword
+      dimming: true
+      effect: [flinching]
+      necessity: [uninstall, WhiCapsl]
+      bonus: [boosts]
+  - DblHero:
+      chips:
+        - medium: [WideBlde B, LongBlde B, ProtoMnSP B]
+      dimming: true
+      effect: [flinchflash]
+      counter: [broken]
+  - Darkness:
+      chips:
+        - low: [VDoll F, VDoll F, Bass F]
+        - low: [VDoll F, VDoll F, BassAnly F]
+      element: fire
+      dimming: true
+      effect: [flinchflash]
+      reliability: [area]
+      counter: [area]
+  - MstrCros:
+      chips:
+        - medium: [FireHit3 A, AquaNdl3 A, ElcPuls3 A, RskyHny3 A]
+      dimming: true
+      effect: [flinchflash]
+      reliability: [Fan]
+      counter: [object, broken]
+  - SunMoon:
+      chips:
+        - low: [Meteors R, Atk+30 *, Uninstll R]
+      dimming: true
+      effect: [flinchflash, uninstall, cracked]
+      reliability: [immobilization]
+  - TwinLdrs:
+      chips:
+        - low: [ProtoMnSP B, AntiNavi *, Colonel *]
+        - low: [ColonelSP C, AntiNavi *, ProtoMan *]
+      dimming: true
+      effect: [flinchflash]
+      counter: [broken]
