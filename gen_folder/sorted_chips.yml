@@ -609,8 +609,12 @@ nonAttacking:
       effect: [recoverylow]
   - AreaGrab:
       chips:
-        - PanlGrab *
         - AreaGrab BFS*
+      effect: [area]
+      counter: [grabback]
+  - PanlGrab:
+      chips:
+        - PanlGrab *
       effect: [area]
       counter: [grabback]
   - GrabBnsh:
@@ -629,6 +633,7 @@ nonAttacking:
       chips:
         - PnlRetrn *
       effect: [panelspawn]
+      necessity: [broken, cracked, ice, grass, poison, conveyer]
   - Geddon:
       chips:
         - Geddon ALR*

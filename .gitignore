@@ -12,3 +12,10 @@
 out_patch/
 tools/floating/flipscfg.bin
 temp/
+*.dump
+gen_folder/all_chips_by_name.yml
+gen_folder/chip_synergy_partition_table.json
+gen_folder/pa_chips_high.yml
+gen_folder/sorted_chips_out.yml
+gen_folder/all_chip_names_by_effects.json
+*.pyc

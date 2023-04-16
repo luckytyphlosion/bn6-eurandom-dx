@@ -33,6 +33,8 @@ def mb_to_max_chip_count(mb):
     else:
         return 1
 
+FREEZE_BREAK_SYNERGY_TEMP_FIX = False
+
 class ChipDB:
     __slots__ = ("sorted_chips", "chip_game_info", "temp_all_family_fields", "query_cache", "query_unflat_cache")
 
@@ -201,17 +203,17 @@ class ChipDB:
             chip_family["bonus"].add("grass")
         elif element == "aqua":
             chip_family["bonus"].add("ice")
-            # temporary
-            chip_family["bonus"].add("break")
+            if FREEZE_BREAK_SYNERGY_TEMP_FIX:
+                chip_family["bonus"].add("break")
         elif element == "elec":
             chip_family["bonus"].add("bubbled")
 
         element2 = chip_family["element2"]
         if element2 == "break":
             chip_family["bonus"].add("frozen")
-            # temporary
-            chip_family["bonus"].add("aqua")
-            chip_family["bonus"].add("ice")
+            if FREEZE_BREAK_SYNERGY_TEMP_FIX:
+                chip_family["bonus"].add("aqua")
+                chip_family["bonus"].add("ice")
 
         elif element2 == "sword":
             chip_family["counter"].add("antisword")
@@ -221,6 +223,9 @@ class ChipDB:
 
         if chip_family["dimming"] and category_name != "nonAttacking":
             chip_family["counter"].update(("invisible", "antidmg", "barrier", "bblwrap", "aura"))
+
+        if chip_family["isobject"]:
+            chip_family["effect"].add("object")
 
         chip_family["almostAllEffects"] = frozenset(tuple(chip_family["effect"]) + tuple({element, element2}))
 
@@ -363,7 +368,7 @@ class ChipDB:
     def get_chips_by_category(self, category_name):
         return self.sorted_chips[category_name]
 
-    def query(self, category_names=None, ranks=None, groupby=None, exclude_families=None, effects=None, code=None):
+    def query(self, category_names=None, ranks=None, groupby=None, exclude_families=None, effects=None, code=None, exclude_names=None):
         if groupby not in (None, "family"):
             raise RuntimeError()
 
@@ -381,7 +386,7 @@ class ChipDB:
         if wanted_effects is not None:
             wanted_effects = frozenset(effects)
 
-        query_params = QueryParams(wanted_category_names, wanted_ranks, groupby, exclude_families, wanted_effects, wanted_code)
+        query_params = QueryParams(wanted_category_names, wanted_ranks, groupby, exclude_families, wanted_effects, wanted_code, exclude_names)
 
         cache_result = self.query_cache.get(query_params)
         if cache_result is not None:
@@ -436,6 +441,7 @@ class ChipDB:
                                     chip_family_new["parts"] = rank_chip
                                     chip_family_new["name"] = chip_family_name
                                     chip_family_new["category"] = category_name
+                                    chip_family_new["rank"] = wanted_rank
                                 else:
                                     if wanted_code is not None and "*" not in rank_chip["codes"] and wanted_code not in rank_chip["codes"]:
                                         continue
@@ -445,8 +451,12 @@ class ChipDB:
                                     chip_family_new["name"] = rank_chip["name"]
                                     chip_family_new["family"] = chip_family_name
                                     chip_family_new["category"] = category_name
+                                    chip_family_new["rank"] = wanted_rank
 
                                 if wanted_effects is not None and not wanted_effects.issubset(chip_family["almostAllEffects"] | frozenset((chip_family_new["name"],))):
+                                    continue
+
+                                if exclude_names is not None and chip_family_new["name"] in exclude_names:
                                     continue
 
                                 if groupby is None:
@@ -507,18 +517,19 @@ class ChipDB:
     #    return result
 
 class QueryParams:
-    __slots__ = ("category_names", "ranks", "groupby", "exclude_families", "wanted_effects", "wanted_code")
+    __slots__ = ("category_names", "ranks", "groupby", "exclude_families", "wanted_effects", "wanted_code", "exclude_names")
 
-    def __init__(self, category_names=None, ranks=None, groupby=None, exclude_families=None, wanted_effects=None, wanted_code=None):
+    def __init__(self, category_names=None, ranks=None, groupby=None, exclude_families=None, wanted_effects=None, wanted_code=None, exclude_names=None):
         self.category_names = frozenset(category_names) if category_names is not None else None
         self.ranks = frozenset(ranks) if ranks is not None else None
         self.groupby = groupby
         self.exclude_families = frozenset(exclude_families) if exclude_families is not None else None
         self.wanted_effects = frozenset(wanted_effects) if wanted_effects is not None else None
         self.wanted_code = wanted_code
+        self.exclude_names = frozenset(exclude_names) if exclude_names is not None else None
 
     def __key(self):
-        return (self.category_names, self.ranks, self.groupby, self.exclude_families, self.wanted_effects, self.wanted_code)
+        return (self.category_names, self.ranks, self.groupby, self.exclude_families, self.wanted_effects, self.wanted_code, self.exclude_names)
 
     def __hash__(self):
         return hash(self.__key())
