@@ -132,7 +132,11 @@ class ChipDB:
 
             chip["name"] = chip_name
             chip["codes"] = chip_codes
-            chip["maxCount"] = max_chip_count
+            if "maxCount" not in chip_family:
+                chip["maxCount"] = max_chip_count
+            else:
+                chip["maxCount"] = chip_family["maxCount"]
+
             chip_family[chip_rank_key].append(chip)
             chip_family["allChips"].append(chip)
 

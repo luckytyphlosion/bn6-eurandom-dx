@@ -59,7 +59,7 @@ class Folder:
         if chip_in_folder is None:
             folder_dest[name] = FolderChip.from_code(name, code)
         else:
-            max_chip_count = mb_to_max_chip_count(self.chip_game_info[name]["mb"])
+            max_chip_count = self.all_chips_by_name[name]["maxCount"]
             if max_chip_count <= chip_in_folder.quantity:
                 raise IllegalFolderError(f"{name} with {self.chip_game_info[name]['mb']}MB has max count of {max_chip_count}! (quantity: {chip_in_folder.quantity})")
 
@@ -73,7 +73,7 @@ class Folder:
         return name in self.data
 
     def max_chip_count_reached(self, name):
-        max_chip_count = mb_to_max_chip_count(self.chip_game_info[name]["mb"])
+        max_chip_count = self.all_chips_by_name[name]["maxCount"]
         return max_chip_count <= self.data.get(name).quantity
 
     def add_pa(self, pa):

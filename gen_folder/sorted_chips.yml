@@ -609,6 +609,7 @@ nonAttacking:
         - Fanfare PSZ*
       isobject: true
       dimming: true
+      maxCount: 1
       effect: [invincible]
       bonus: [RockCube, area]
       counter: [selfbroken, oppbroken]
@@ -617,6 +618,7 @@ nonAttacking:
         - Discord AGS*
       isobject: true
       dimming: true
+      maxCount: 1
       effect: [confusion]
       bonus: [RockCube, area]
       counter: [selfbroken, oppbroken]
@@ -625,6 +627,7 @@ nonAttacking:
         - Timpani IOT*
       isobject: true
       dimming: true
+      maxCount: 1
       effect: [timpani]
       bonus: [RockCube, area]
       counter: [selfbroken, oppbroken]
@@ -633,6 +636,7 @@ nonAttacking:
         - Silence BRW*
       isobject: true
       dimming: true
+      maxCount: 1
       effect: [blind]
       bonus: [RockCube, area]
       counter: [selfbroken, oppbroken]
