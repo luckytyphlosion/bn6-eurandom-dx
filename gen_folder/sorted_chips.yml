@@ -74,6 +74,7 @@ ranged:
         - RskyHny2 CRV, medium
         - RskyHny3 ADM
       element: wood
+      counter: [fire]
       bonus: [boosts, GrabBnsh, GrabRvng]
   - RlngLog:
       chips:
@@ -107,7 +108,7 @@ ranged:
       element: aqua
       effect: [ice, flinchflash]
       effectcounter: [broken]
-      bonus: [aqua]
+      bonus: [aqua, break]
   - WoodDrgn:
       chips:
         - WoodDrgn GTV
@@ -305,7 +306,7 @@ constrained:
         - AirRaid3 NUZ, medium
       isobject: true
       necessity: [boosts]
-      reliability: [WhiCapsl, immobilization]
+      reliability: [WhiCapsl, frozen, paralysis, timpani]
   - Sensor:
       chips:
         - Sensor1 JOW, low
@@ -326,7 +327,7 @@ constrained:
       chips:
         - Vulcan3 AGR, medium
       effect: [flinching]
-      reliability: [immobilization, uninstall]
+      reliability: [frozen, paralysis, timpani, uninstall]
       bonus: [boosts]
   - DrilArm:
       chips:
@@ -357,14 +358,14 @@ constrained:
         - LongBlde BMV
       element: sword
       effect: [flinchflash]
-      reliability: [immobilization, area]
+      reliability: [Fan, immobilization, area, comingrd]
       counter: [area]
   - WideBlde:
       chips:
         - WideBlde BRW, medium
       element: sword
       effect: [flinchflash]
-      reliability: [Fan, area]
+      reliability: [Fan, area, comingrd]
       counter: [area]
   - FireSwrd:
       chips:
@@ -372,7 +373,7 @@ constrained:
       element: fire
       element2: sword
       effect: [flinchflash]
-      reliability: [Fan, area]
+      reliability: [Fan, area, comingrd]
       counter: [area]
   - AquaSwrd:
       chips:
@@ -380,14 +381,14 @@ constrained:
       element: aqua
       element2: sword
       effect: [flinchflash]
-      reliability: [Fan, area]
+      reliability: [Fan, area, comingrd]
       counter: [area]
   - ElecSwrd:
       chips:
         - ElecSwrd EKN, medium
       element: elec
       element2: sword
-      effect: [flinching, paralysis]
+      effect: [flinching, paralysis, comingrd]
       reliability: [Fan, area]
       counter: [area]
   - BambSwrd:
@@ -396,21 +397,21 @@ constrained:
       element: wood
       element2: sword
       effect: [flinching]
-      reliability: [Fan, area]
+      reliability: [Fan, area, comingrd]
       counter: [area]
   - WindRack:
       chips:
         - WindRack FJR*, medium
       element: wind
       effect: [flinching, bigpush]
-      reliability: [Fan, area]
+      reliability: [Fan, area, comingrd]
       counter: [area]
   - MoonBld:
       chips:
         - MoonBld AMT, medium
       element: sword
       effect: [flinchflash, bug]
-      reliability: [Fan, area]
+      reliability: [Fan, area, comingrd]
       counter: [area]
   - LilBolr:
       chips:
@@ -428,7 +429,7 @@ constrained:
         - GolmHit3 HMV
       element: break
       effect: [flinchflash]
-      reliability: [Fan, area]
+      reliability: [Fan, area, comingrd]
       bonus: [VDoll]
   - Rflectr:
       chips:
@@ -501,7 +502,7 @@ pseudoMega:
         - Muramasa M
       element: sword
       effect: [flinchflash]
-      reliability: [immobilization, area]
+      reliability: [Fan, immobilization, area, comingrd]
       counter: [area]
   - NumbrBl:
       chips:
@@ -536,7 +537,7 @@ nonAttacking:
       chips:
         - IceSeed ALR*
       effect: [ice]
-      bonus: [aqua]
+      bonus: [aqua, break]
       counter: [broken]
   - PoisSeed:
       chips:
@@ -614,10 +615,16 @@ nonAttacking:
       counter: [grabback]
   - GrabBnsh:
       chips:
-        - GrabBnsh BMS
         - GrabRvng IQZ
       effect: [grabback]
+      necessity: [area]
       counter: [AntiDmg, Barr200, LifeAur]
+  - GrabRvng:
+      chips:
+        - GrabBnsh BMS
+      effect: [grabback]
+      necessity: [area]
+      counter: [AntiDmg, Barr100, Barr200, LifeAur]
   - PnlRetrn:
       chips:
         - PnlRetrn *
@@ -645,9 +652,14 @@ nonAttacking:
         - Invisibl *
       effect: [invisible]
       counter: [invispierce]
-  - Barrier:
+  - Barr100:
       chips:
         - Barr100 HOY, medium
+      effect: [barrier]
+      counter: [wind]
+      bonus: [holy]
+  - Barr200:
+      chips:
         - Barr200 KUW
       effect: [barrier]
       counter: [wind]

@@ -201,12 +201,18 @@ class ChipDB:
             chip_family["bonus"].add("grass")
         elif element == "aqua":
             chip_family["bonus"].add("ice")
+            # temporary
+            chip_family["bonus"].add("break")
         elif element == "elec":
             chip_family["bonus"].add("bubbled")
 
         element2 = chip_family["element2"]
         if element2 == "break":
             chip_family["bonus"].add("frozen")
+            # temporary
+            chip_family["bonus"].add("aqua")
+            chip_family["bonus"].add("ice")
+
         elif element2 == "sword":
             chip_family["counter"].add("antisword")
 
@@ -357,13 +363,14 @@ class ChipDB:
     def get_chips_by_category(self, category_name):
         return self.sorted_chips[category_name]
 
-    def query(self, category_names=None, ranks=None, groupby=None, exclude_families=None, effects=None):
+    def query(self, category_names=None, ranks=None, groupby=None, exclude_families=None, effects=None, code=None):
         if groupby not in (None, "family"):
             raise RuntimeError()
 
         wanted_category_names = category_names
         wanted_ranks = ranks
         wanted_effects = effects
+        wanted_code = code
 
         if wanted_category_names is None:
             wanted_category_names = ("ranged", "constrained", "pseudoMega", "nonAttacking", "megaChips", "gigaChips", "programAdvances")
@@ -374,7 +381,7 @@ class ChipDB:
         if wanted_effects is not None:
             wanted_effects = frozenset(effects)
 
-        query_params = QueryParams(wanted_category_names, wanted_ranks, groupby, exclude_families, wanted_effects)
+        query_params = QueryParams(wanted_category_names, wanted_ranks, groupby, exclude_families, wanted_effects, wanted_code)
 
         cache_result = self.query_cache.get(query_params)
         if cache_result is not None:
@@ -405,10 +412,34 @@ class ChipDB:
                                     chip_family_new = {}
 
                                 if category_name == "programAdvances":
+                                    pa_codes = set()
+                                    for chip in rank_chip:
+                                        pa_codes.add(chip["code"])
+                                
+                                    if "*" in pa_codes:
+                                        pa_codes.remove("*")
+                                        if len(pa_codes) == 0:
+                                            pa_code = "*"
+                                        elif len(pa_codes) == 1:
+                                            pa_code = next(iter(pa_codes))
+                                        else:
+                                            raise RuntimeError()
+                                    elif len(pa_codes) == 1:
+                                        pa_code = next(iter(pa_codes))
+                                    else:
+                                        pa_code = "?"
+
+                                    if wanted_code is not None and (pa_code == "?" or (pa_code != "*" and pa_code != wanted_code)):
+                                        continue
+
+                                    chip_family_new["codes"] = [pa_code]
                                     chip_family_new["parts"] = rank_chip
                                     chip_family_new["name"] = chip_family_name
                                     chip_family_new["category"] = category_name
                                 else:
+                                    if wanted_code is not None and "*" not in rank_chip["codes"] and wanted_code not in rank_chip["codes"]:
+                                        continue
+
                                     chip_family_new["codes"] = rank_chip["codes"]
                                     chip_family_new["maxCount"] = rank_chip["maxCount"]
                                     chip_family_new["name"] = rank_chip["name"]
@@ -476,17 +507,18 @@ class ChipDB:
     #    return result
 
 class QueryParams:
-    __slots__ = ("category_names", "ranks", "groupby", "exclude_families", "wanted_effects")
+    __slots__ = ("category_names", "ranks", "groupby", "exclude_families", "wanted_effects", "wanted_code")
 
-    def __init__(self, category_names=None, ranks=None, groupby=None, exclude_families=None, wanted_effects=None):
+    def __init__(self, category_names=None, ranks=None, groupby=None, exclude_families=None, wanted_effects=None, wanted_code=None):
         self.category_names = frozenset(category_names) if category_names is not None else None
         self.ranks = frozenset(ranks) if ranks is not None else None
         self.groupby = groupby
         self.exclude_families = frozenset(exclude_families) if exclude_families is not None else None
         self.wanted_effects = frozenset(wanted_effects) if wanted_effects is not None else None
+        self.wanted_code = wanted_code
 
     def __key(self):
-        return (self.category_names, self.ranks, self.groupby, self.exclude_families, self.wanted_effects)
+        return (self.category_names, self.ranks, self.groupby, self.exclude_families, self.wanted_effects, self.wanted_code)
 
     def __hash__(self):
         return hash(self.__key())
