@@ -235,7 +235,7 @@ class ChipWeight:
         return {"weight": self.weight, "reasons": self.reasons}
 
     def is_no_reason(self):
-        return self.weight == 1 and self.reasons[0] == "None"
+        return self.reasons[0] == "None"
 
 class ChipWeights(collections.defaultdict):
     def __init__(self):
@@ -349,7 +349,7 @@ class GenFolder:
             ranks=(wanted_rank,)
         )
 
-        dump_noref_yaml(pa_chips_1, "pa_chips_1.yml")
+        #dump_noref_yaml(pa_chips_1, "pa_chips_1.yml")
         chosen_pa_1 = random.choice(pa_chips_1)
         self.add_pa(chosen_pa_1)
 
@@ -846,7 +846,7 @@ class GenFolder:
                 chip_name_for_weights = chip_name
 
             if chip_weights[chip_name_for_weights].is_no_reason():
-                self.chip_weights_log += "(No reason)"
+                self.chip_weights_log += f"(No reason, weight: {self.chip_usage_stats.chip_usages[chip_name_for_weights].z_score_multiplier:.4f})"
 
             self.chip_weights_log += "---\n"
 
@@ -956,8 +956,10 @@ class GenFolder:
                 effect_counter[effect] += folder_chip.quantity
                 if "effect" in {"paralysis", "bubbled", "frozen", "timpani"}:
                     effect_counter["immobilization"] += folder_chip.quantity
-                if "effect" == "cracked":
-                    effect_counter["broken"] += folder_chip.quantity / 2
+                if "effect" == "selfcracked":
+                    effect_counter["selfbroken"] += folder_chip.quantity / 2
+                elif "effect" == "oppcracked":
+                    effect_counter["oppbroken"] += folder_chip.quantity / 2
 
             for code in folder_chip.codes:
                 effect_counter[code] += 1
@@ -1013,6 +1015,7 @@ class GenFolder:
                                 continue
 
                             chip_name_of_chip_in_folder_fulfilling_synergy_of_chip_candidate = chip_name_fulfilling_synergy_of_chip_candidate
+                            chip_data_of_chip_in_folder_fulfilling_synergy_of_chip_candidate = self.all_chips_by_name[chip_name_of_chip_in_folder_fulfilling_synergy_of_chip_candidate]
 
                             chip_codes_of_chip_in_folder_fulfilling_synergy_of_chip_candidate = self.folder.find_codes_of_chip(chip_name_of_chip_in_folder_fulfilling_synergy_of_chip_candidate)
 
@@ -1032,8 +1035,9 @@ class GenFolder:
                                 if matching_effect in {"invispierce", "immobilization", "bubbled"}:
                                     if chip_in_folder_fulfilling_synergy_of_chip_candidate_matches_candidate_chip_code:
                                         matching_effect_passes_code_check = True
-                                else:
-                                    matching_effect_passes_code_check = True
+                                elif (chip_data_of_chip_in_folder_fulfilling_synergy_of_chip_candidate["family"] in {"AirSpin1", "AirSpin", "AirRaid"} or candidate_chip_data["family"] in {"AirSpin1", "AirSpin", "AirRaid"}) and matching_effect in {"object", "objectremove"}:
+                                    if chip_in_folder_fulfilling_synergy_of_chip_candidate_matches_candidate_chip_code:
+                                        matching_effect_passes_code_check = True
 
                             if not matching_effect_passes_code_check:
                                 continue
@@ -1057,10 +1061,7 @@ class GenFolder:
                             except Exception as e:
                                 raise RuntimeError(f"self.all_chips_by_name[chip_name_of_chip_in_folder_fulfilling_synergy_of_chip_candidate]: {self.all_chips_by_name[chip_name_of_chip_in_folder_fulfilling_synergy_of_chip_candidate]}") from e
 
-                            z_score_multiplier = self.chip_usage_stats.chip_usages[name_and_code].z_score_multiplier
-                            synergy_chip_weight.mul_subreason(z_score_multiplier, f"; {z_score_multiplier:.4f}x: keeping usage even")
                             synergy_chip_weight.mul_subreason(effect_counter[chip_name_of_chip_in_folder_fulfilling_synergy_of_chip_candidate], "")
-
                             chip_weights[name_and_code].add(synergy_chip_weight)
 
                 counter_avg_counter = ChipWeights()
@@ -1102,8 +1103,13 @@ class GenFolder:
                 for chip_name_of_chip_in_folder_fulfilling_synergy_of_chip_candidate, chip_weight in counter_avg_counter.items():
                     chip_weights[name_and_code].add(chip_weight)
 
+                z_score_multiplier = self.chip_usage_stats.chip_usages[name_and_code].z_score_multiplier
+                #if z_score_multiplier < 0:
+                #    print(f"{name_and_code} z_score_multiplier: {z_score_multiplier}")
                 if not name_and_code in chip_weights:
-                    chip_weights[name_and_code] = ChipWeight(1, "None")
+                    chip_weights[name_and_code] = ChipWeight(z_score_multiplier, "None")
+                else:
+                    chip_weights[name_and_code].mul_weight(z_score_multiplier, f"{z_score_multiplier:.4f}x: keeping usage even")
 
                 if self.splay_codes:
                     if code != "*":
@@ -1170,10 +1176,14 @@ class GenFolder:
         matching_effects = synergy_chip_effects & cur_chip_synergy_wanted_effects
         if len(matching_effects) == 0:
             matching_effects = set()
-            if "broken" in cur_chip_synergy_wanted_effects and "cracked" in synergy_chip_effects:
-                matching_effects.add("broken")
-            elif "cracked" in cur_chip_synergy_wanted_effects and "broken" in synergy_chip_effects:
-                matching_effects.add("broken")
+            if "selfbroken" in cur_chip_synergy_wanted_effects and "selfcracked" in synergy_chip_effects:
+                matching_effects.add("selfbroken")
+            elif "oppbroken" in cur_chip_synergy_wanted_effects and "oppcracked" in synergy_chip_effects:
+                matching_effects.add("oppbroken")
+            elif "selfcracked" in cur_chip_synergy_wanted_effects and "selfbroken" in synergy_chip_effects:
+                matching_effects.add("selfbroken")
+            elif "oppcracked" in cur_chip_synergy_wanted_effects and "oppbroken" in synergy_chip_effects:
+                matching_effects.add("oppbroken")
             if "immobilization" in cur_chip_synergy_wanted_effects and ({"paralysis", "bubbled", "frozen", "timpani"} | synergy_chip_effects):
                 matching_effects.add("immobilization")
             elif "immobilization" in synergy_chip_effects and ({"paralysis", "bubbled", "frozen", "timpani"} | cur_chip_synergy_wanted_effects):
@@ -1229,8 +1239,13 @@ class GenFolder:
         def calc_zscores(self):
             for name_and_code, chip_usage in self.chip_usages.items():
                 chip_usage.z_score = (chip_usage.count - self.mean) / self.stddev
-                chip_usage.z_score_multiplier = 1 / (1 + 1*chip_usage.z_score)
-                #print(f"name_and_code: {name_and_code}, chip_usage.z_score: {chip_usage.z_score}")
+                if chip_usage.z_score >= 0:
+                    chip_usage.z_score_multiplier = 1 / (chip_usage.z_score + 1)
+                else:
+                    chip_usage.z_score_multiplier = 1 - chip_usage.z_score
+
+                #if chip_usage.z_score_multiplier < 0:
+                #    print(f"name_and_code: {name_and_code}, chip_usage.z_score: {chip_usage.z_score}, chip_usage.z_score_multiplier: {chip_usage.z_score_multiplier}")
 
     @staticmethod
     def __chip_usage_stats_sort_func(a, b):
@@ -1277,7 +1292,7 @@ class GenFolder:
             good_folder_pa_filepath = good_folder_filepath_parent / "pas" / good_folder_basename
             good_folder_non_pa_filepath = good_folder_filepath_parent / "non_pas" / good_folder_basename
 
-            print(f"good_folder_filename: {good_folder_filename}")
+            #print(f"good_folder_filename: {good_folder_filename}")
             with open(good_folder_pa_filepath, "r") as f:
                 for line in f:
                     line = line.strip()

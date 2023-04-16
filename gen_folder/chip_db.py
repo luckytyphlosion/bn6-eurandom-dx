@@ -226,6 +226,10 @@ class ChipDB:
 
         if chip_family["isobject"]:
             chip_family["effect"].add("object")
+            chip_family["counter"].add("objectremove")
+
+        if "trap" in chip_family["effect"]:
+            chip_family["counter"].add("cursor")
 
         chip_family["almostAllEffects"] = frozenset(tuple(chip_family["effect"]) + tuple({element, element2}))
 
@@ -288,14 +292,18 @@ class ChipDB:
                         try_add_synergy.try_add(effect)
                         if effect in {"paralysis", "bubbled", "frozen", "timpani"}:
                             try_add_synergy.try_add("immobilization")
-                        if effect == "cracked":
-                            try_add_synergy.try_add("broken")
+                        if effect == "selfcracked":
+                            try_add_synergy.try_add("selfbroken")
+                        elif effect == "oppcracked":
+                            try_add_synergy.try_add("oppbroken")
 
-                        if effect in ("cracked", "broken"):
+                        if effect in {"selfcracked", "oppcracked", "selfbroken", "oppbroken"}:
                             try_add_synergy.try_add("immobilization", "uninstall")
                         elif effect == "uninstall":
-                            try_add_synergy.try_add("immobilization", "cracked")
-                            try_add_synergy.try_add("immobilization", "broken")
+                            try_add_synergy.try_add("immobilization", "selfcracked")
+                            try_add_synergy.try_add("immobilization", "oppcracked")
+                            try_add_synergy.try_add("immobilization", "selfbroken")
+                            try_add_synergy.try_add("immobilization", "oppbroken")
 
                         #if effect == "aqua":
                         #    try_add_synergy.try_add("frozen", "ice")
@@ -360,10 +368,14 @@ class ChipDB:
                         if effect == "immobilization":
                             for effect in ("paralysis", "bubbled", "frozen", "timpani"):
                                 try_add_from_synergy.try_add(effect)
-                            try_add_from_synergy.try_add("uninstall", "cracked")
-                            try_add_from_synergy.try_add("uninstall", "broken")
-                        elif effect == "broken":
-                            try_add_from_synergy.try_add("cracked")
+                            try_add_from_synergy.try_add("uninstall", "selfcracked")
+                            try_add_from_synergy.try_add("uninstall", "oppcracked")
+                            try_add_from_synergy.try_add("uninstall", "selfbroken")
+                            try_add_from_synergy.try_add("uninstall", "oppbroken")
+                        elif effect == "selfbroken":
+                            try_add_from_synergy.try_add("selfcracked")
+                        elif effect == "oppbroken":
+                            try_add_from_synergy.try_add("oppcracked")
 
     def get_chips_by_category(self, category_name):
         return self.sorted_chips[category_name]
