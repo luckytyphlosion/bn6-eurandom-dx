@@ -149,14 +149,14 @@ class Folder:
 
         return families
 
-    def get_non_soup_pa_codes_except_asterisk(self):
+    def get_non_soup_pa_codes_except_asterisk_and_gigas(self):
         codes = set()
 
         for folder_chip in self.pa_chips.values():
             codes.update(code for code in folder_chip.codes if not code.isdigit() and code != "*")
 
-        for folder_chip in self.non_pa_chips.values():
-            codes.update(code for code in folder_chip.codes if code != "*")
+        for chip_name, folder_chip in self.non_pa_chips.items():
+            codes.update(code for code in folder_chip.codes if code != "*" and self.all_chips_by_name[chip_name]["category"] != "gigaChips")
 
         return codes
 
@@ -256,14 +256,21 @@ class ChipWeights(collections.defaultdict):
         return {item: weight.weight for item, weight in self.items()}
 
 class GenFolder:
-    __slots__ = ("chip_db", "chip_game_info", "chosen_pas", "folder", "all_non_pa_chips_by_name", "num_megas", "num_pseudo_megas", "num_gigas", "all_chips_by_name", "splay_codes", "chip_weights_log", "input_chips_filename", "print_stats", "chip_usage_stats")
+    __slots__ = ("chip_db", "chip_game_info", "chosen_pas", "folder", "all_non_pa_chips_by_name", "num_megas", "num_pseudo_megas", "num_gigas", "all_chips_by_name", "splay_codes", "chip_weights_log", "input_chips_filename", "print_stats", "chip_usage_stats", "add_lifeaur")
 
     def __init__(self, sorted_chips_filename, chip_game_info_filename, output_filename, seed, input_chips_filename, print_stats):
         global random
         if seed is None:
-            seed = randomlib.randint(0, 100000000)
+            seed = randomlib.randint(0, 10000000000)
         print(f"seed: {seed}")
         random = randomlib.Random(seed)
+
+        # 15% chance to add LifeAur
+        if random.random() < 0.15:
+            self.add_lifeaur = True
+        else:
+            self.add_lifeaur = False
+
         self.chip_weights_log = ""
         self.input_chips_filename = input_chips_filename
         self.print_stats = print_stats
@@ -272,7 +279,7 @@ class GenFolder:
         with open(chip_game_info_filename, "r") as f:
             self.chip_game_info = json.load(f)
 
-        self.chip_db = ChipDB(sorted_chips_filename, self.chip_game_info)
+        self.chip_db = ChipDB(sorted_chips_filename, self.chip_game_info, random, self.add_lifeaur)
         self.__gen_all_chips_by_name()
 
         self.folder = Folder(self.chip_game_info, self.all_chips_by_name)
@@ -307,7 +314,7 @@ class GenFolder:
             with open(non_pa_output_filepath, "w+") as f:
                 f.write(used_non_pa_chip_names)
 
-            with open("chip_weights_log.dump", "w+") as f:
+            with open(f"{pathlib.Path(output_basename).stem}_chip_weights_log.dump", "w+") as f:
                 f.write(self.chip_weights_log)
 
             print(output)
@@ -609,8 +616,8 @@ class GenFolder:
                 #("ranged", "mediumChips"): 8,
                 ("constrained", "highChips"): 3,
                 ("constrained", "mediumChips"): 3,
-                ("nonAttacking", "highChips"): 3,
-                ("nonAttacking", "mediumChips"): 3,
+                ("nonAttacking", "highChips"): 6,
+                ("nonAttacking", "mediumChips"): 1,
             }
 
             found_code_count_weights = {
@@ -660,8 +667,8 @@ class GenFolder:
                 ("ranged", "mediumChips"): 11,
                 ("constrained", "highChips"): 11,
                 ("constrained", "mediumChips"): 11,
-                ("nonAttacking", "highChips"): 3,
-                ("nonAttacking", "mediumChips"): 3,
+                ("nonAttacking", "highChips"): 6,
+                ("nonAttacking", "mediumChips"): 1,
             }
 
             found_code_count_weights = {
@@ -725,7 +732,6 @@ class GenFolder:
 
         # 25% chance to add in area
         if random.randint(0, 3) == 0:
-            print("area")
             # six possible area types
             # panlgrab
             # areagrab
@@ -745,6 +751,42 @@ class GenFolder:
             for area_chip_name in area_chip_names:
                 self.add_chip(area_chip_name, "*")
 
+            # 50% chance to add grabback
+            if random.randint(0, 1) == 0:
+                grabback_weights = {
+                    "GrabBnsh B": 1,
+                    "GrabBnsh M": 1,
+                    "GrabBnsh S": 1,
+                    "GrabRvng I": 1,
+                    "GrabRvng Q": 1,
+                    "GrabRvng Z": 1,
+                    "JudgeMan *": 1,
+                    "JudgeMnEX J": 1,
+                    "JudgeMnSP J": 1
+                }
+                chip_name, chip_code = weighted_random(grabback_weights).split(" ", maxsplit=1)
+                self.add_chip(chip_name, chip_code)
+
+        # 10% chance to add uninstall
+        if random.random() < 0.1:
+            if "Uninstll" not in self.folder.data:
+                chip_name = "Uninstll"
+                chip_code = random.choice("GLR")
+                self.add_chip(chip_name, chip_code)
+
+        if self.add_lifeaur and "LifeAur" not in self.folder.data:
+            self.add_chip("LifeAur", "U")
+
+        # 15% chance to add Invisibl
+        if random.random() < 0.15:
+            if "Invisibl" not in self.folder.data:
+                self.add_chip("Invisibl", "*")
+
+        # 15% chance to add AntiDmg
+        if random.random() < 0.15:
+            if "AntiDmg" not in self.folder.data:
+                self.add_chip("AntiDmg", "*")
+        
         cur_main_loop_iteration = 0
 
         while self.folder.num_chips() + (self.num_megas - self.folder.count_num_of_category("megaChips")) + (self.num_pseudo_megas - self.folder.count_num_of_category("pseudoMegas")) < 30:
@@ -895,34 +937,63 @@ class GenFolder:
         rank = weighted_random(rank_weights)
         quantity_weights = quantity_weights_by_rank[rank]
 
-        category_chips = self.query_db(
-            category_names=(category_name,),
-            ranks=(rank,),
-            groupby="family"
-        )
-
         while True:
             try:
-                n_category_chip_families = random.sample(category_chips, k=num_picks)
-                for n_category_chip_family in n_category_chip_families:
+                for cur_pick_index in range(num_picks):
+                    folder_families = self.folder.get_families()
+
+                    category_chips = self.query_db(
+                        category_names=(category_name,),
+                        ranks=(rank,),
+                        groupby="family",
+                        exclude_families=folder_families
+                    )
+
+                    #n_category_chip_families = random.sample(category_chips, k=num_picks)
+
                     #print(f"n_category_chip_family: {n_category_chip_family}")
-                    n_category_chip_weights = {}
-                    for cur_n_category_chip in n_category_chip_family["chips"]:
-                        cur_n_category_chip_name = cur_n_category_chip["name"]
-                        cur_n_category_chip_codes = GenFolder.simplify_codes(cur_n_category_chip["codes"])
-                        for cur_n_category_chip_code in cur_n_category_chip_codes:
-                            cur_n_category_chip_name_and_code = f"{cur_n_category_chip_name} {cur_n_category_chip_code}"
-                            n_category_chip_weights[cur_n_category_chip_name_and_code] = self.chip_usage_stats.chip_usages[cur_n_category_chip_name_and_code].z_score_multiplier ** 2
+                    if len(self.chip_usage_stats.all_nonfound_chips) == 0:
+                        try_force_new_chips = False
+                    else:
+                        try_force_new_chips = True
+
+                    while True:
+                        n_category_chip_weights = {}
+                        for n_category_chip_family in category_chips:
+                            for cur_n_category_chip in n_category_chip_family["chips"]:
+                                cur_n_category_chip_name = cur_n_category_chip["name"]
+                                cur_n_category_chip_codes = GenFolder.simplify_codes(cur_n_category_chip["codes"])
+                                for cur_n_category_chip_code in cur_n_category_chip_codes:
+                                    cur_n_category_chip_name_and_code = f"{cur_n_category_chip_name} {cur_n_category_chip_code}"
+                                    #print(f"cur_n_category_chip_name_and_code: {cur_n_category_chip_name_and_code}")
+                                    if try_force_new_chips:
+                                        if self.chip_usage_stats.chip_usages[cur_n_category_chip_name_and_code].count == 0:
+                                            n_category_chip_weights[cur_n_category_chip_name_and_code] = 1
+                                    else:
+                                        n_category_chip_weights[cur_n_category_chip_name_and_code] = self.chip_usage_stats.chip_usages[cur_n_category_chip_name_and_code].z_score_multiplier ** 4
+
+                        if len(n_category_chip_weights) == 0:
+                            if try_force_new_chips:
+                                print(f"Ran out of new chips! category_name: {category_name}, rank: {rank}, n_category_chip_family['chips']: {n_category_chip_family['chips']}")
+                                try_force_new_chips = False
+                                continue
+                            else:
+                                raise RuntimeError()
+                        else:
+                            break
 
                     n_category_chip_name_and_code = weighted_random(n_category_chip_weights)
                     n_category_chip_name, n_category_chip_code = n_category_chip_name_and_code.split(" ", maxsplit=1)
 
                     if self.has_chip(n_category_chip_name):
-                        raise OuterBreakError()
+                        raise RuntimeError()
 
                     quantity = weighted_random(quantity_weights)
                     for i in range(quantity):
                         self.add_chip(n_category_chip_name, n_category_chip_code)
+    
+                    self.chip_usage_stats.all_nonfound_chips.discard(n_category_chip_name_and_code)
+
             except (OuterBreakError, IllegalFolderError) as e:
                 continue
 
@@ -962,6 +1033,7 @@ class GenFolder:
                     effect_counter["oppbroken"] += folder_chip.quantity / 2
 
             for code in folder_chip.codes:
+                #if self.all_chips_by_name[name]["category"] != "gigaChips":
                 effect_counter[code] += 1
 
         output = (''.join(f"{k}: {v}\n" for k, v in sorted(effect_counter.items(), key=functools.cmp_to_key(GenFolder.counter_key_func))))
@@ -979,9 +1051,12 @@ class GenFolder:
         #chip_weights = collections.Counter()
 
         chip_weights = ChipWeights()
-        current_non_soup_pa_codes = self.folder.get_non_soup_pa_codes_except_asterisk()
+        current_non_soup_pa_codes = self.folder.get_non_soup_pa_codes_except_asterisk_and_gigas()
         asterisk_code_count = self.folder.get_code_count("*")
         #print(effect_counter)
+        #if 'AreaGrab' in for_chips:
+        #    print(f"for_chips: {for_chips}")
+        #print(f"areagrab in for_chips: {}")
         for name, folder_chip in for_chips.items():
             candidate_chip_data = self.all_non_pa_chips_by_name[name]
             codes = GenFolder.simplify_codes(folder_chip.codes)
@@ -990,6 +1065,10 @@ class GenFolder:
                 cur_chip_names = [f"{name} {code}" for code in codes]
             else:
                 cur_chip_names = [name]
+
+            candidate_chip_data_interesting = candidate_chip_data["interesting"]
+            candidate_chip_data_interesting_operator, candidate_chip_data_interesting_value_str = candidate_chip_data_interesting.split(maxsplit=1)
+            candidate_chip_data_interesting_value = int(candidate_chip_data_interesting_value_str)
 
             for name_and_code in cur_chip_names:
                 if self.splay_codes:
@@ -1012,6 +1091,8 @@ class GenFolder:
                                 continue
 
                             if effect_counter[chip_name_fulfilling_synergy_of_chip_candidate] == 0:
+                                #if name == "AreaGrab":
+                                #    print(f"effect_counter: {effect_counter}")
                                 continue
 
                             chip_name_of_chip_in_folder_fulfilling_synergy_of_chip_candidate = chip_name_fulfilling_synergy_of_chip_candidate
@@ -1031,13 +1112,16 @@ class GenFolder:
                             matching_effects = self.debug_find_matching_effects(synergy_chip_effects, cur_chip_synergy_wanted_effects, synergy_weight, chip_name_of_chip_in_folder_fulfilling_synergy_of_chip_candidate, name_and_code)
                             matching_effect_passes_code_check = False
 
-                            for matching_effect in matching_effects:
-                                if matching_effect in {"invispierce", "immobilization", "bubbled"}:
-                                    if chip_in_folder_fulfilling_synergy_of_chip_candidate_matches_candidate_chip_code:
-                                        matching_effect_passes_code_check = True
-                                elif (chip_data_of_chip_in_folder_fulfilling_synergy_of_chip_candidate["family"] in {"AirSpin1", "AirSpin", "AirRaid"} or candidate_chip_data["family"] in {"AirSpin1", "AirSpin", "AirRaid"}) and matching_effect in {"object", "objectremove"}:
-                                    if chip_in_folder_fulfilling_synergy_of_chip_candidate_matches_candidate_chip_code:
-                                        matching_effect_passes_code_check = True
+                            try:
+                                for matching_effect in matching_effects:
+                                    if matching_effect in {"invispierce", "immobilization", "bubbled"}:
+                                        if chip_in_folder_fulfilling_synergy_of_chip_candidate_matches_candidate_chip_code:
+                                            matching_effect_passes_code_check = True
+                                    elif (chip_data_of_chip_in_folder_fulfilling_synergy_of_chip_candidate["family"] in {"AirSpin1", "AirSpin", "AirRaid"} or candidate_chip_data["family"] in {"AirSpin1", "AirSpin", "AirRaid"}) and matching_effect in {"object", "objectremove"}:
+                                        if chip_in_folder_fulfilling_synergy_of_chip_candidate_matches_candidate_chip_code:
+                                            matching_effect_passes_code_check = True
+                            except KeyError as e:
+                                raise RuntimeError(f"candidate_chip_data: {candidate_chip_data}") from e
 
                             if not matching_effect_passes_code_check:
                                 continue
@@ -1056,8 +1140,8 @@ class GenFolder:
                             try:
                                 if self.all_chips_by_name[chip_name_of_chip_in_folder_fulfilling_synergy_of_chip_candidate]["category"] == "constrained" and synergy_class_full == "reliabilityfor":
                                     synergy_chip_weight.mul_subreason(10, "; 10x: constrained and reliabilityfor")
-                                elif cur_chip_name in {"AreaGrab", "PanlGrab"}:
-                                    synergy_chip_weight.mul_subreason(10, "; 10x: area chip")
+                                #elif cur_chip_name in {"AreaGrab", "PanlGrab"}:
+                                #    synergy_chip_weight.mul_subreason(10, "; 10x: area chip")
                             except Exception as e:
                                 raise RuntimeError(f"self.all_chips_by_name[chip_name_of_chip_in_folder_fulfilling_synergy_of_chip_candidate]: {self.all_chips_by_name[chip_name_of_chip_in_folder_fulfilling_synergy_of_chip_candidate]}") from e
 
@@ -1103,6 +1187,13 @@ class GenFolder:
                 for chip_name_of_chip_in_folder_fulfilling_synergy_of_chip_candidate, chip_weight in counter_avg_counter.items():
                     chip_weights[name_and_code].add(chip_weight)
 
+                candidate_chip_data_interesting_reason = ""
+                if candidate_chip_data_interesting != "+ 0":
+                    if candidate_chip_data_interesting_operator == "*":
+                        chip_weights[name_and_code].mul_weight(candidate_chip_data_interesting_value, f"{candidate_chip_data_interesting_value}x: interesting")
+                    elif candidate_chip_data_interesting_operator == "+":
+                        chip_weights[name_and_code].add_weight(candidate_chip_data_interesting_value, f"+{candidate_chip_data_interesting_value}: interesting")
+
                 z_score_multiplier = self.chip_usage_stats.chip_usages[name_and_code].z_score_multiplier
                 #if z_score_multiplier < 0:
                 #    print(f"{name_and_code} z_score_multiplier: {z_score_multiplier}")
@@ -1121,11 +1212,11 @@ class GenFolder:
                             else:
                                 max_unique_codes = 5
 
-                            if len(current_non_soup_pa_codes) >= max_unique_codes:
+                            if len(current_non_soup_pa_codes) >= max_unique_codes and not candidate_chip_data["ignoreCodeLimit"]:
                                 #print(f"current_non_soup_pa_codes: {current_non_soup_pa_codes}")
                                 chip_weights[name_and_code] = ChipWeight(0, "max codes reached")
                     else:
-                        if asterisk_code_count >= 6 and random.random() >= 1/(asterisk_code_count - 5):
+                        if asterisk_code_count >= 6 and not candidate_chip_data["ignoreCodeLimit"] and random.random() >= 1/(asterisk_code_count - 5):
                             chip_weights[name_and_code] = ChipWeight(0, "max * code reached")
 
                     #else:
@@ -1178,11 +1269,11 @@ class GenFolder:
             matching_effects = set()
             if "selfbroken" in cur_chip_synergy_wanted_effects and "selfcracked" in synergy_chip_effects:
                 matching_effects.add("selfbroken")
-            elif "oppbroken" in cur_chip_synergy_wanted_effects and "oppcracked" in synergy_chip_effects:
+            if "oppbroken" in cur_chip_synergy_wanted_effects and "oppcracked" in synergy_chip_effects:
                 matching_effects.add("oppbroken")
-            elif "selfcracked" in cur_chip_synergy_wanted_effects and "selfbroken" in synergy_chip_effects:
+            if "selfcracked" in cur_chip_synergy_wanted_effects and "selfbroken" in synergy_chip_effects:
                 matching_effects.add("selfbroken")
-            elif "oppcracked" in cur_chip_synergy_wanted_effects and "oppbroken" in synergy_chip_effects:
+            if "oppcracked" in cur_chip_synergy_wanted_effects and "oppbroken" in synergy_chip_effects:
                 matching_effects.add("oppbroken")
             if "immobilization" in cur_chip_synergy_wanted_effects and ({"paralysis", "bubbled", "frozen", "timpani"} | synergy_chip_effects):
                 matching_effects.add("immobilization")
@@ -1191,7 +1282,8 @@ class GenFolder:
 
         if len(matching_effects) == 0:
             raise RuntimeError(f"fromsynergy: synergy_weight_modified: {synergy_weight_modified}, chip_name_of_chip_in_folder_fulfilling_synergy_of_chip_candidate: {chip_name_of_chip_in_folder_fulfilling_synergy_of_chip_candidate}, cur chip: {name_and_code}, synergy_chip_effects: {synergy_chip_effects}, cur_chip_synergy_wanted_effects: {cur_chip_synergy_wanted_effects}")
-
+        #elif chip_name_of_chip_in_folder_fulfilling_synergy_of_chip_candidate == "Anubis" and name_and_code == "FireBrn2 T":
+        #    print(f"matching_effects: {matching_effects}")
         #print(f"matching_effects: {matching_effects}")
 
         return matching_effects
@@ -1225,9 +1317,13 @@ class GenFolder:
         def __init__(self, name_and_code, count):
             self.name_and_code = name_and_code
             self.count = count
+            self.z_score = -22222
+            self.z_score_multiplier = -44444
+
+    null_chip_usage = ChipUsage("", 0)
 
     class ChipUsageStats:
-        __slots__ = ("chip_usages", "stddev", "mean")
+        __slots__ = ("chip_usages", "stddev", "mean", "all_nonfound_chips")
 
         def __init__(self):
             self.chip_usages = {}
@@ -1323,6 +1419,7 @@ class GenFolder:
                     chip_usage_stats.chip_usages[chip_name_and_code] = GenFolder.ChipUsage(chip_name_and_code, chip_count)
                     #non_pa_usage_stats[chip_name].stats[chip_code]
 
+        chip_usage_stats.all_nonfound_chips = all_nonfound_chips
         chip_usage_stats.calc_stddev_and_mean()
         chip_usage_stats.calc_zscores()
 
@@ -1335,15 +1432,19 @@ class GenFolder:
         if format_stats:
             output = ""
             output += "== PA usage stats ==\n"
-            output += "".join(f"{pa_name}: {len(folder_filenames_with_pa)/total_pas:.2f} ({len(folder_filenames_with_pa)}/{total_pas}) [{', '.join(sorted(set(folder_filenames_with_pa)))}]\n" for pa_name, folder_filenames_with_pa in sorted_pa_usage_stats)
+            #output += "".join(f"{pa_name}: {len(folder_filenames_with_pa)/total_pas:.2f} ({len(folder_filenames_with_pa)}/{total_pas}) [{', '.join(sorted(set(folder_filenames_with_pa)))}]\n" for pa_name, folder_filenames_with_pa in sorted_pa_usage_stats)
+            output += "".join(f"{pa_name}: {len(folder_filenames_with_pa)/total_pas:.2f} ({len(folder_filenames_with_pa)}/{total_pas})\n" for pa_name, folder_filenames_with_pa in sorted_pa_usage_stats)
     
             output += "\n"
             output += "== Non-PA usage stats ==\n"
             for chip_name, chip_codes_usage_stats in sorted_non_pa_usage_stats:
                 chip_codes_total_codes = len(chip_codes_usage_stats.folder_filenames)
                 sorted_chip_codes_usage_stats_stats_counter = sorted(chip_codes_usage_stats.stats.items(), key=functools.cmp_to_key(GenFolder.__chip_usage_stats_sort_func))
-                output += f"{chip_name}: {chip_codes_total_codes/total_non_pas:.2f} ({chip_codes_total_codes}/{total_non_pas}) [{', '.join(sorted(set(chip_codes_usage_stats.folder_filenames)))}]\n"
-                output += "".join(f"- {chip_code}: {len(chip_code_folder_filenames)/chip_codes_total_codes:.2f} ({len(chip_code_folder_filenames)}/{chip_codes_total_codes}) [{', '.join(sorted(set(chip_code_folder_filenames)))}]\n" for chip_code, chip_code_folder_filenames in sorted_chip_codes_usage_stats_stats_counter)
+                #output += f"{chip_name}: {chip_codes_total_codes/total_non_pas:.2f} ({chip_codes_total_codes}/{total_non_pas}) [{', '.join(sorted(set(chip_codes_usage_stats.folder_filenames)))}]\n"
+                output += f"{chip_name}: {chip_codes_total_codes/total_non_pas:.2f} ({chip_codes_total_codes}/{total_non_pas})\n"
+                
+                #output += "".join(f"- {chip_code}: {len(chip_code_folder_filenames)/chip_codes_total_codes:.2f} ({len(chip_code_folder_filenames)}/{chip_codes_total_codes}) (mul: {chip_usage_stats.chip_usages.get(chip_name + ' ' + chip_code, GenFolder.null_chip_usage).z_score_multiplier:.4f}) [{', '.join(sorted(set(chip_code_folder_filenames)))}]\n" for chip_code, chip_code_folder_filenames in sorted_chip_codes_usage_stats_stats_counter)
+                output += "".join(f"- {chip_code}: {len(chip_code_folder_filenames)/chip_codes_total_codes:.2f} ({len(chip_code_folder_filenames)}/{chip_codes_total_codes}) (mul: {chip_usage_stats.chip_usages.get(chip_name + ' ' + chip_code, GenFolder.null_chip_usage).z_score_multiplier:.4f})\n" for chip_code, chip_code_folder_filenames in sorted_chip_codes_usage_stats_stats_counter)
     
             output += "\n"
             output += "== Non-found non-PA chips ==\n"

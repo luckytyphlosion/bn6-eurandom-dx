@@ -196,6 +196,7 @@ ranged:
         - BurnSqr2 DMT
         - BurnSqr3 EOZ
       element: fire
+      dimming: true
       effect: [flinchflash]
       counter: [selfbroken]
   - Boomer:
@@ -234,23 +235,27 @@ ranged:
       chips:
         - Magnum FLW
       element: cursor
+      dimming: true
       effect: [flinchflash, oppbroken]
   - CircGun:
       chips:
         - CircGun PTV
       element: cursor
+      dimming: true
       effect: [flinchflash]
       reliability: [area]
       counter: [selfbroken, area]
   - Mine:
       chips:
         - Mine AST
+      dimming: true
       effect: [flinchflash, invispierce, aurabreak]
       counter: [selfbroken, HubBatc]
   - BlzrdBal:
       chips:
         - BlzrdBal HNT
       element: aqua
+      dimming: true
       effect: [flinchflash, objectremove]
       bonus: [object]
       counter: [selfbroken, oppbroken]
@@ -316,6 +321,7 @@ constrained:
         - AirRaid2 OTY, low
         - AirRaid3 NUZ, medium
       isobject: true
+      dimming: true
       necessity: [boosts]
       reliability: [WhiCapsl, frozen, paralysis, timpani]
   - Sensor:
@@ -325,6 +331,7 @@ constrained:
         - Sensor3 IKQ
       element: elec
       isobject: true
+      dimming: true
       effect: [invispierce, paralysis, flinch]
       reliability: [MagCoil, holy]
       bonus: [bigpush, pull, conveyer]
@@ -452,12 +459,14 @@ constrained:
         - TimeBom1 FGH, medium
         - TimeBom2 CDE, medium
       isobject: true
+      dimming: true
       effect: [flinchflash]
       reliability: [immobilization, ice, DublShot]
   - TimeBom3:
       chips:
         - TimeBom3 LMN
       isobject: true
+      dimming: true
       effect: [flinchflash, aurabreak]
       reliability: [immobilization, ice, DublShot]
   - BlkBomb:
@@ -489,6 +498,7 @@ constrained:
   - Snake:
       chips:
         - Snake HML
+      dimming: true
       effect: [flinchflash]
       necessity: [selfbroken]
       bonus: [area]
@@ -496,6 +506,7 @@ constrained:
       chips:
         - SumnBlk1 EIP
       element2: sword
+      dimming: true
       effect: [flinchflash]
       necessity: [selfbroken]
   - SumnBlk:
@@ -503,6 +514,7 @@ constrained:
         - SumnBlk2 HOV
         - SumnBlk3 WYZ
       element2: sword
+      dimming: true
       effect: [flinchflash, aurabreak]
       necessity: [selfbroken]
 
@@ -529,11 +541,13 @@ pseudoMega:
   - NumbrBl:
       chips:
         - NumbrBl N
+      dimming: true
       effect: [flinchflash]
       bonus: [poison, bug]
   - Meteors:
       chips:
         - Meteors R
+      dimming: true
       effect: [flinchflash]
       bonus: [area, boosts]
   - JustcOne:
@@ -545,6 +559,7 @@ pseudoMega:
   - Guardian:
       chips:
         - Guardian O
+      dimming: true
       isobject: true
       effect: [flinchflash, invispierce, aurabreak]
       counter: [selfbroken, oppbroken]
@@ -570,6 +585,7 @@ nonAttacking:
       chips:
         - Wind *
       isobject: true
+      dimming: true
       effect: [Wind]
       bonus: [RockCube, area]
       counter: [selfbroken, oppbroken]
@@ -577,6 +593,7 @@ nonAttacking:
       chips:
         - Fan *
       isobject: true
+      dimming: true
       effect: [Fan]
       bonus: [RockCube, area]
       counter: [selfbroken, oppbroken]
@@ -584,12 +601,14 @@ nonAttacking:
       chips:
         - RockCube *
       isobject: true
+      dimming: true
       bonus: [TankCan1, TankCan2, TankCan3, WindRack]
       counter: [selfbroken, oppbroken, break]
   - Fanfare:
       chips:
         - Fanfare PSZ*
       isobject: true
+      dimming: true
       effect: [invincible]
       bonus: [RockCube, area]
       counter: [selfbroken, oppbroken]
@@ -597,6 +616,7 @@ nonAttacking:
       chips:
         - Discord AGS*
       isobject: true
+      dimming: true
       effect: [confusion]
       bonus: [RockCube, area]
       counter: [selfbroken, oppbroken]
@@ -604,6 +624,7 @@ nonAttacking:
       chips:
         - Timpani IOT*
       isobject: true
+      dimming: true
       effect: [timpani]
       bonus: [RockCube, area]
       counter: [selfbroken, oppbroken]
@@ -611,6 +632,7 @@ nonAttacking:
       chips:
         - Silence BRW*
       isobject: true
+      dimming: true
       effect: [blind]
       bonus: [RockCube, area]
       counter: [selfbroken, oppbroken]
@@ -633,40 +655,52 @@ nonAttacking:
   - AreaGrab:
       chips:
         - AreaGrab BFS*
+      dimming: true
       effect: [area]
+      interesting: "* 10"
       counter: [grabback]
   - PanlGrab:
       chips:
         - PanlGrab *
+      dimming: true
       effect: [area]
+      interesting: "* 10"
       counter: [grabback]
   - GrabBnsh:
       chips:
         - GrabRvng IQZ
+      dimming: true
       effect: [grabback]
       necessity: [area]
+      ignoreCodeLimit: true
       counter: [AntiDmg, Barr200, LifeAur]
   - GrabRvng:
       chips:
         - GrabBnsh BMS
+      dimming: true
       effect: [grabback]
       necessity: [area]
+      ignoreCodeLimit: true
       counter: [AntiDmg, Barr100, Barr200, LifeAur]
   - PnlRetrn:
       chips:
         - PnlRetrn *
+      dimming: true
       effect: [panelspawn]
       necessity: [oppbroken, oppcracked, ice, grass, poison, conveyer]
   - Geddon:
       chips:
         - Geddon ALR*
+      dimming: true
       effect: [selfbroken, oppbroken]
       counter: [panelspawn]
   - HolyPanl:
       chips:
         - HolyPanl ABS*
         - Snctuary Z
+      dimming: true
       effect: [holy, panelspawn]
+      ignoreCodeLimit: true
       counter: [oppbroken, oppcracked, ice, grass, poison, conveyer, area]
   - FullCust:
       chips:
@@ -678,30 +712,38 @@ nonAttacking:
   - Invisibl:
       chips:
         - Invisibl *
+      dimming: true
       effect: [invisible]
       counter: [invispierce]
   - Barr100:
       chips:
         - Barr100 HOY, medium
+      dimming: true
       effect: [barrier]
       counter: [wind]
       bonus: [holy]
   - Barr200:
       chips:
         - Barr200 KUW
+      dimming: true
       effect: [barrier]
+      ignoreCodeLimit: true
       counter: [wind]
       bonus: [holy]
   - BblWrap:
       chips:
         - BblWrap IQZ
+      dimming: true
       effect: [bblwrap]
+      ignoreCodeLimit: true
       counter: [wind, elec]
       bonus: [BugBomb]
   - LifeAur:
       chips:
         - LifeAur U
       dimming: true
+      interesting: "+ 10"
+      ignoreCodeLimit: true
       effect: [aura]
       necessity: [wind, aurabreak]
       counter: [wind, aurabreak]
@@ -710,6 +752,7 @@ nonAttacking:
       chips:
         - Uninstll GLR
       effect: [uninstall]
+      bonus: [oppcracked, oppbroken]
       counter: [HubBatc]
       # necessity?
   - AntiNavi:

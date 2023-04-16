@@ -33,14 +33,12 @@ def mb_to_max_chip_count(mb):
     else:
         return 1
 
-FREEZE_BREAK_SYNERGY_TEMP_FIX = False
-
 class ChipDB:
-    __slots__ = ("sorted_chips", "chip_game_info", "temp_all_family_fields", "query_cache", "query_unflat_cache")
+    __slots__ = ("sorted_chips", "chip_game_info", "temp_all_family_fields", "query_cache", "query_unflat_cache", "random", "freeze_break_synergy_temp_fix", "uninstall_cracked_temp_fix", "fire_grass_aura_break_temp_fix", "add_lifeaur")
 
     synergy_classes = ("necessity", "reliability", "bonus", "counter", "effectcounter")
 
-    def __init__(self, sorted_chips_filename, chip_game_info):
+    def __init__(self, sorted_chips_filename, chip_game_info, random, add_lifeaur):
         with open(sorted_chips_filename, "r") as f:
             contents = f.read()
             contents = re.sub(r"\belementalpanel\b", "ice, grass", contents)
@@ -49,6 +47,17 @@ class ChipDB:
         self.chip_game_info = chip_game_info
         self.query_cache = {}
         self.query_unflat_cache = {}
+        if random.randint(0, 1) == 0:
+            self.freeze_break_synergy_temp_fix = True
+        else:
+            self.freeze_break_synergy_temp_fix = False
+
+        if random.randint(0, 1) == 0:
+            self.uninstall_cracked_temp_fix = True
+        else:
+            self.uninstall_cracked_temp_fix = False
+
+        self.fire_grass_aura_break_temp_fix = add_lifeaur
 
         #self.temp_all_family_fields = set()
 
@@ -95,7 +104,6 @@ class ChipDB:
 
         self.__make_for_synergies()
         self.__make_from_synergies()
-        print(sorted(all_synergies))
 
             #chip_category = sorted_chips[chip_category_name]
 
@@ -164,7 +172,7 @@ class ChipDB:
 
     # 'isobject', 'reliability', 'element2', 'chips', 'counter', 'effect', 'necessity', 'bonus', 'effectcounter', 'dimming', 'element'
     # ['bonus', 'chips', 'counter', 'dimming', 'effect', 'effectcounter', 'element', 'element2', 'isobject', 'necessity', 'reliability']
-    def __add_default_fields(self, chip_family, ):
+    def __add_default_fields(self, chip_family):
         for synergy_field in ChipDB.synergy_classes:
             for suffix in ("", "from", "for"):
                 synergy_field_full = f"{synergy_field}{suffix}"
@@ -197,13 +205,21 @@ class ChipDB:
             else:
                 chip_family["element2"] = "none"
 
+        if "interesting" not in chip_family:
+            chip_family["interesting"] = "+ 0"
+        if "ignoreCodeLimit" not in chip_family:
+            chip_family["ignoreCodeLimit"] = False
+
     def __add_rule_based_synergies_and_fields(self, chip_family, category_name):
         element = chip_family["element"]
         if element == "fire":
             chip_family["bonus"].add("grass")
+            if self.fire_grass_aura_break_temp_fix:
+                chip_family["effect"].add("aurabreak")
+
         elif element == "aqua":
             chip_family["bonus"].add("ice")
-            if FREEZE_BREAK_SYNERGY_TEMP_FIX:
+            if self.freeze_break_synergy_temp_fix:
                 chip_family["bonus"].add("break")
         elif element == "elec":
             chip_family["bonus"].add("bubbled")
@@ -211,7 +227,7 @@ class ChipDB:
         element2 = chip_family["element2"]
         if element2 == "break":
             chip_family["bonus"].add("frozen")
-            if FREEZE_BREAK_SYNERGY_TEMP_FIX:
+            if self.freeze_break_synergy_temp_fix:
                 chip_family["bonus"].add("aqua")
                 chip_family["bonus"].add("ice")
 
@@ -231,7 +247,16 @@ class ChipDB:
         if "trap" in chip_family["effect"]:
             chip_family["counter"].add("cursor")
 
-        chip_family["almostAllEffects"] = frozenset(tuple(chip_family["effect"]) + tuple({element, element2}))
+        if "grass" in chip_family["effect"]:
+            if self.fire_grass_aura_break_temp_fix:
+                chip_family["effect"].add("aurabreak")
+
+        #if {"selfbroken", "oppbroken"
+        almost_all_effects = set(tuple(chip_family["effect"]) + tuple({element, element2}))
+        if chip_family["dimming"]:
+            almost_all_effects.add("dimming")
+
+        chip_family["almostAllEffects"] = frozenset(almost_all_effects)
 
     class TryAddForSynergy:
         __slots__ = ("chip_family", "fulfilling_chips_for_all_synergies_of_synergy_class", "synergy_class_for")
@@ -278,9 +303,7 @@ class ChipDB:
             for chip_family_full in category_chips:
                 chip_family_name, chip_family = next(iter(chip_family_full.items()))
 
-                effects = chip_family["effect"]
-                element = chip_family["element"]
-                element2 = chip_family["element2"]
+                almost_all_effects = chip_family["almostAllEffects"]
                 all_chip_names = chip_family["allChipNames"]
 
                 for synergy_class in ChipDB.synergy_classes:
@@ -288,7 +311,7 @@ class ChipDB:
                     synergy_class_for = f"{synergy_class}for"
                     try_add_synergy = ChipDB.TryAddForSynergy(chip_family, fulfilling_chips_for_all_synergies_of_synergy_class, synergy_class_for)
 
-                    for effect in itertools.chain(effects, {element, element2}, all_chip_names):
+                    for effect in itertools.chain(almost_all_effects, all_chip_names):
                         try_add_synergy.try_add(effect)
                         if effect in {"paralysis", "bubbled", "frozen", "timpani"}:
                             try_add_synergy.try_add("immobilization")
@@ -452,6 +475,7 @@ class ChipDB:
                                     chip_family_new["codes"] = [pa_code]
                                     chip_family_new["parts"] = rank_chip
                                     chip_family_new["name"] = chip_family_name
+                                    chip_family_new["family"] = chip_family_name
                                     chip_family_new["category"] = category_name
                                     chip_family_new["rank"] = wanted_rank
                                 else:
