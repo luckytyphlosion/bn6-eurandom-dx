@@ -69,7 +69,7 @@ Hook_PatchMainMapLoop_Return:
 	.endarea
 
 	.org BaseNaviStatsTable+10
-	.byte 0x3b ; shield
+	.byte 0 ; no b+left
 
 	; unbiased shuffling
 	.org PatchShuffleFolderSlice

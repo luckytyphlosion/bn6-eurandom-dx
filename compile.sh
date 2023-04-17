@@ -22,7 +22,7 @@ if [[ $? -ne 0 ]] ; then
 fi
 
 # Make patches
-VERSION="v0.0.2"
+VERSION="v0.0.3"
 mkdir -p "out_patch/bn6_random_battle/${VERSION}"
 ./tools/floating/flips.exe -c -b "bn6f.gba" "bn6f-random-battle.gba" "out_patch/bn6_random_battle/${VERSION}/BR6E_00.bps"
 ./tools/floating/flips.exe -c -b "bn6g.gba" "bn6g-random-battle.gba" "out_patch/bn6_random_battle/${VERSION}/BR5E_00.bps"
