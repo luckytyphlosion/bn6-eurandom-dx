@@ -67,12 +67,23 @@ Hook_PatchMainMapLoop_Return:
 	.pool
 	.endarea
 
-	; .org
-	; push r4,r5,lr
-	; mov r4, r0
-	; mov r1, oNaviStats_FolderIndex
-	; ldrb r5, [r4, r1]
-	; 
+	; actually just load folder index into humor here
+	.org PatchApplyNaviCustPrograms
+	push r4-r7,lr
+	ldr r0, =eCurRandomBattleFolder
+	ldrb r2, [r0]
+	mov r0, 0
+	mov r1, oNaviStats_FolderIndex
+	bl SetNaviStatsByte
+	pop r4-r7,lr
+
+	.pool
+
+	push r4,r5,lr
+	mov r4, r0
+	mov r1, oNaviStats_FolderIndex
+	ldrb r5, [r4, r1]
+	
 
 	.org BaseNaviStatsTable+10
 	.byte 0 ; no b+left

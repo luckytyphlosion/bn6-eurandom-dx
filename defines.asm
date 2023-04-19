@@ -20,6 +20,7 @@
 	.vdefinelabel PatchGiveFolder, 0x8137718, 0x81394f4
 	GiveFolder equ PatchGiveFolder
 	.vdefinelabel FolderTablePoolAddr, 0x8137864, 0x8139640
+	.vdefinelabel PatchApplyNaviCustPrograms, 0x813C684, 0x813e464
 
 	; version-independent patch defines
 	.definelabel PatchLoadBaseNaviHP, 0x8013b80
@@ -49,6 +50,7 @@
 	.definelabel sub_8034BB8, 0x8034bb8
 	.definelabel GetPositiveSignedRNG1, 0x8001562
 	.definelabel SetNaviStatsByte, 0x80136f0
+	.definelabel eNaviStats, 0x20047cc
 
 	; version-specific game functions
 	.vdefinelabel chatbox_runScript, 0x8040384, 0x8040358

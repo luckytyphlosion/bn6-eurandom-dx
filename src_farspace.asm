@@ -76,6 +76,7 @@ Hook_PatchLoadOtherBaseNaviStats:
 GiveRandomFolder:
 	push r4-r7,lr
 	ldrb r2, [r5,8] ; folder index
+	sub r2, r2, 1
 	ldr r0, =eCurRandomBattleFolder
 	strb r2, [r0]
 	mov r0, 0x01
