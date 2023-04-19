@@ -1,5 +1,5 @@
 @archive RandomBattleFolderNotSetProperlyTextScript
-@size 4
+@size 5
 
 script 0 mmbn6 {
   mugshotShow
@@ -92,3 +92,15 @@ script 3 mmbn6 {
   waitHold
 }
 
+script 4 mmbn6 {
+  msgOpenMenu
+  mugshotShow
+    mugshot = MegaMan
+  """
+  AreaGrab and PanlGrab
+  reg are not allowed.
+  """
+  keyWait
+    any = false
+  end
+}

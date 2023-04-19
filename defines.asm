@@ -23,6 +23,9 @@
 	.vdefinelabel PatchApplyNaviCustPrograms, 0x813C684, 0x813e464
 	.vdefinelabel PatchPrintBufferedStringNumBytesCopied, 0x80421f4, 0x80421c4
 	.vdefinelabel PatchPrintBufferedStringTerminator, 0x80421fc, 0x80421cc
+	.vdefinelabel PatchAfterCheckMBForRegChip, 0x8133d00, 0x8135adc
+	.vdefinelabel Hook_PatchAfterCheckMBForRegChip_ReturnGrabChip, 0x8133d22, 0x8135afe
+	.vdefinelabel Hook_PatchAfterCheckMBForRegChip_ReturnAllowReg, 0x8133D28, 0x8135b04
 
 	; version-independent patch defines
 	.definelabel PatchLoadBaseNaviHP, 0x8013b80
@@ -56,7 +59,9 @@
 	.definelabel CustMenuMainInput, 0x8026CCC
 	.definelabel GetBattleEffects, 0x802d246
 	.definelabel GetBattleNaviStatsByte, 0x80136cc
+	.definelabel PlaySoundEffect, 0x80005cc
 
+	.definelabel word_202A020, 0x202A020
 	; .definelabel OpponentFolderNameBuffer, 0x203f7f4
 
 	; .definelabel Folder1
@@ -64,6 +69,7 @@
 	.vdefinelabel chatbox_runScript, 0x8040384, 0x8040358
 	.vdefinelabel StartBattleGeneric, 0x80990b8, 0x809a5f0
 	.vdefinelabel NPCScript_StationaryNPC, 0x809f6cc, 0x80a0bac
+	.vdefinelabel chatbox_runScript_803FD9C, 0x803FD9C, 0x803fd70
 
 	; new memory
 	.definelabel eFolderNameBuffer, 0x203f7f0

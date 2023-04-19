@@ -100,6 +100,49 @@ SetMegaManNaviStatsByte_longcall:
 	ldr r3, =SetNaviStatsByte|1
 	bx r3
 
+Hook_PatchAfterCheckMBForRegChip:
+	mov r2, r1
+	mov r1, 1
+	tst r0, r1
+	bne @@regNotAllowedVanilaRules
+
+	push r7
+	ldrh r0, [r5, 0x20]
+	ldrh r1, [r5, 0x24]
+	add r0, r0, r1
+	mov r1, 0x20 
+	mul r0, r1
+	ldr r7, =word_202A020 
+	add r7, r7, r0
+	ldrh r0, [r7, 0x1c]
+	lsr r0, r0, 7
+	pop r7
+
+	cmp r0, PANLGRAB
+	beq @@isGrabChip
+	cmp r0, AREAGRAB
+	bne @@allowReg
+@@isGrabChip:
+	mov r0, SOUND_CANT_JACK_IN
+	ldr r1, =PlaySoundEffect|1
+	mov lr, pc
+	bx r1
+	ldr r0, =RandomBattleFolderNotSetProperlyTextScript
+	mov r1, 4
+	ldr r2, =chatbox_runScript_803FD9C|1
+	mov lr, pc
+	bx r2
+	ldr r0, =Hook_PatchAfterCheckMBForRegChip_ReturnGrabChip|1
+	bx r0
+
+@@regNotAllowedVanilaRules:
+	ldr r0, =Hook_PatchAfterCheckMBForRegChip_Return|1
+	bx r0
+
+@@allowReg:
+	ldr r0, =Hook_PatchAfterCheckMBForRegChip_ReturnAllowReg|1
+	bx r0
+
 Hook_PatchCustMenuMainInput:
 	push r4-r7,lr
 	ldr r0, =GetBattleEffects|1

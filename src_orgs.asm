@@ -88,6 +88,12 @@ Hook_PatchMainMapLoop_Return:
 	mov r2, 0xe5
 	strb r2, [r0, 6]
 
+	.org PatchAfterCheckMBForRegChip
+	ldr r3, =Hook_PatchAfterCheckMBForRegChip|1
+	bx r3
+	.pool
+Hook_PatchAfterCheckMBForRegChip_Return:
+
 	.org BaseNaviStatsTable+10
 	.byte 0 ; no b+left
 
