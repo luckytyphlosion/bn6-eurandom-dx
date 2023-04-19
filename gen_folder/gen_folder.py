@@ -256,7 +256,7 @@ class ChipWeights(collections.defaultdict):
         return {item: weight.weight for item, weight in self.items()}
 
 class GenFolder:
-    __slots__ = ("chip_db", "chip_game_info", "chosen_pas", "folder", "all_non_pa_chips_by_name", "num_megas", "num_pseudo_megas", "num_gigas", "all_chips_by_name", "splay_codes", "chip_weights_log", "input_chips_filename", "print_stats", "chip_usage_stats", "add_lifeaur")
+    __slots__ = ("chip_db", "chip_game_info", "chosen_pas", "folder", "all_non_pa_chips_by_name", "num_megas", "num_pseudo_megas", "num_gigas", "all_chips_by_name", "splay_codes", "chip_weights_log", "input_chips_filename", "print_stats", "chip_usage_stats", "add_lifeaur", "all_pa_chips_by_name")
 
     def __init__(self, sorted_chips_filename, chip_game_info_filename, output_filename, seed, input_chips_filename, print_stats):
         global random
@@ -332,6 +332,10 @@ class GenFolder:
         )
         
         self.all_chips_by_name = self.querydict_db()
+        self.all_pa_chips_by_name = self.querydict_db(
+            category_names=("programAdvances",)
+        )
+
         dump_noref_yaml(self.all_chips_by_name, "all_chips_by_name.yml")
 
     def __gen_pas(self):
@@ -1374,7 +1378,11 @@ class GenFolder:
                 return 0
 
     def __calc_chip_usage_stats(self, format_stats=True):
-        pa_usage_stats = collections.defaultdict(set)
+        pa_usage_stats = {}
+
+        for pa_chip_name in self.all_pa_chips_by_name.keys():
+            pa_usage_stats[pa_chip_name] = set()
+
         non_pa_usage_stats = collections.defaultdict(GenFolder.ChipCodesUsageStats)
         all_found_chips = set()
         all_nonfound_chips = set()

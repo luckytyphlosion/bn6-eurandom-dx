@@ -71,6 +71,18 @@ Hook_PatchMainMapLoop_Return:
 	.org BaseNaviStatsTable+10
 	.byte 0 ; no b+left
 
+	; prevent folder editing
+	.org PatchPackFolderSwitch
+	mov r0, 1
+	tst r0, r0
+	mov pc, lr
+
+	; prevent chip selection
+	.org PatchFolderSelectChip
+	mov r0, 0
+	tst r0, r0
+	mov pc, lr
+
 	; unbiased shuffling
 	.org PatchShuffleFolderSlice
 ShuffleFolderSlice:

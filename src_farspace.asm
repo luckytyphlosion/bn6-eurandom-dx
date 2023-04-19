@@ -84,26 +84,26 @@ ACDCTown_OnInitMapScript_NEW:
 	ms_end
 
 ACDCTown_ContinuousMapScript_NEW:
-	ms_end
-; 	ms_jump_if_flag_clear CS_VAR_IMM, EVENT_403_TALKED_TO_MODE_NPC, @@notTalkedToModeNPC
-; 	ms_start_cutscene ACDCTown_SetTrainingModeCutsceneScript, 0x0
-; 	ms_clear_event_flag CS_VAR_IMM, EVENT_403_TALKED_TO_MODE_NPC
-;@@notTalkedToModeNPC:
-; 	ms_end
+ 	ms_jump_if_flag_clear CS_VAR_IMM, EVENT_403_START_BATTLE, @@notTalkedToMegaMan
+ 	ms_start_cutscene StartBattleGeneric, 0x1ff0018
+ 	ms_clear_event_flag CS_VAR_IMM, EVENT_403_START_BATTLE
+@@notTalkedToMegaMan:
+ 	ms_end
 
-; ACDCTown_MegaManNPCScript:
-; 	npc_set_active_and_visible
-; 	npc_set_text_script_index 1
-; 	npc_set_sprite SPRITE_NPC_MEGA_MAN
-; 	npc_set_coords 65520, 162, 0
-; 	npc_set_animation 7 ; up left
-; 	npc_jump_with_link NPCScript_StationaryNPC
+ACDCTown_MegaManNPCScript:
+ 	npc_set_active_and_visible
+ 	npc_set_text_script_index 1
+ 	npc_set_sprite SPRITE_NPC_MEGA_MAN
+ 	npc_set_coords 65520, 162, 0
+ 	npc_set_animation 7 ; up left
+ 	npc_jump_with_link NPCScript_StationaryNPC
 
 ACDCTown_GiveRandomBattleItemsAndPrintMessage:
 	cs_lock_player_for_non_npc_dialogue_809e0b0
 	cs_run_text_script CS_VAR_IMM, 0
-	cs_give_item ITEM_REGUP1, 26
+	cs_give_item ITEM_REGUP1, 41
 	cs_give_item ITEM_TAGCHIP, 1
+	cs_give_bugfrags 9999
 	cs_wait_chatbox 0x80
 	cs_warp_cmd_8038040_2 0x0, MAP_GROUP_TRANSITION_TYPE_SAME_MAP_GROUP_TYPE, ACDCTown_CutsceneWarpData
 	cs_unlock_player_after_non_npc_dialogue_809e122
@@ -145,7 +145,7 @@ ACDCTown_MapObjects_NEW:
 
 	.align 4, 0
 ACDCTown_NPCScripts_NEW:
-	; .word ACDCTown_MegaManNPCScript
+	.word ACDCTown_MegaManNPCScript
 	.word 0xff
 
 	.align 4, 0

@@ -16,6 +16,7 @@ ranged:
         - TankCan2 LSV
       effect: [bigpush, flinchflash, oppcracked]
       reliability: [immobilization, Wind, area]
+      bonus: [WhiCapsl]
   - TankCan3:
       chips:
         - TankCan3 BMP
@@ -206,7 +207,7 @@ ranged:
         - M-Boomer IMW
       element: wood
       effect: [flinching, grass]
-      bonus: [PanlGrab]
+      bonus: [PanlGrab, Wind]
       effectcounter: [selfbroken]
   - Lance:
       chips:
@@ -423,6 +424,7 @@ constrained:
       element: wind
       effect: [flinching, bigpush]
       reliability: [Fan, area, comingrd]
+      bonus: [pull]
       counter: [area]
   - MoonBld:
       chips:
@@ -1186,7 +1188,7 @@ programAdvances:
       chips:
         - high: [ElcPuls1 J, ElcPuls2 J, ElcPuls3 J]
       element: elec
-      effect: [flinching, paralysis, blind, bug]
+      effect: [flinching, paralysis, blind, bug, comingrd, Fan]
       reliability: [area]
       bonus: [bubbled]
       counter: [area]
@@ -1230,7 +1232,7 @@ programAdvances:
       counter: [area]
   - GreatYo:
       chips:
-        - high: [true, YoYo L, YoYo M, YoYo N]
+        - medium: [true, YoYo L, YoYo M, YoYo N]
       element2: sword
       effect: [flinching]
   - PitHocky:
@@ -1278,6 +1280,7 @@ programAdvances:
       dimming: true
       effect: [flinchflash]
       reliability: [Fan]
+      bonus: [boosts]
       counter: [object, selfbroken]
   - SunMoon:
       chips:

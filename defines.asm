@@ -6,13 +6,15 @@
 	.definelabel fspace, 0x087FE36C
 
 	; version-specific patch defines
-	.vdefinelabel ACDCTownMapTextPtrAddr, 0x80445e0, 0x80445b8
+	.vdefinelabel ACDCTownMapTextPtrAddr, 0x80445e0, 0x80445b0
 	.vdefinelabel PatchLoadShopData, 0x8048C98, 0x8048c38
 	.vdefinelabel ACDCTownGroup_MapObjectTables, 0x804CF9C, 0x804de20
 	.vdefinelabel ACDCTown_OnInitMapScripts, 0x804d0a4, 0x804df28
 	.vdefinelabel ACDCTown_ContinuousMapScripts, 0x804d0ac, 0x804df30
 	.vdefinelabel ACDCTown_MapGroupNPCScriptPointers, 0x804d0b4, 0x804df38
 	.vdefinelabel LButtonCutsceneScriptAddr, 0x80991f4, 0x809a72c
+	.vdefinelabel PatchPackFolderSwitch, 0x8133E3C, 0x8135c18
+	.vdefinelabel PatchFolderSelectChip, 0x8134A3C, 0x8136818
 
 	; version-independent patch defines
 	.definelabel PatchLoadBaseNaviHP, 0x8013b80
@@ -43,3 +45,5 @@
 
 	; version-specific game functions
 	.vdefinelabel chatbox_runScript, 0x8040384, 0x8040358
+	.vdefinelabel StartBattleGeneric, 0x80990b8, 0x809a5f0
+	.vdefinelabel NPCScript_StationaryNPC, 0x809f6cc, 0x80a0bac

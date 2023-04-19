@@ -255,6 +255,10 @@ class ChipDB:
             if self.fire_grass_aura_break_temp_fix:
                 chip_family["effect"].add("aurabreak")
 
+        if "ice" in chip_family["effect"] and self.freeze_break_synergy_temp_fix:
+            chip_family["bonus"].add("aqua")
+            chip_family["bonus"].add("break")
+
         #if {"selfbroken", "oppbroken"
         almost_all_effects = set(tuple(chip_family["effect"]) + tuple({element, element2}))
         if chip_family["dimming"]:

@@ -30,7 +30,7 @@
 	.definelabel OW_UP_LEFT, 7
 
 	.definelabel EVENT_402, 0x402
-	.definelabel EVENT_403_TALKED_TO_MODE_NPC, 0x403
+	.definelabel EVENT_403_START_BATTLE, 0x403
 
 	.definelabel EVENT_1900_NEVER_SET_IN_VANILLA, 0x1900
 	.definelabel EVENT_TRIGGERED_OLD_SAVE, 0x1901
