@@ -21,6 +21,8 @@
 	GiveFolder equ PatchGiveFolder
 	.vdefinelabel FolderTablePoolAddr, 0x8137864, 0x8139640
 	.vdefinelabel PatchApplyNaviCustPrograms, 0x813C684, 0x813e464
+	.vdefinelabel PatchPrintBufferedStringNumBytesCopied, 0x80421f4, 0x80421c4
+	.vdefinelabel PatchPrintBufferedStringTerminator, 0x80421fc, 0x80421cc
 
 	; version-independent patch defines
 	.definelabel PatchLoadBaseNaviHP, 0x8013b80
@@ -40,7 +42,7 @@
 	.definelabel StartingFolder, 0x80213ac
 	CHIP_INFO_LOAD_ADDR equ 0x21da8
 
-	.definelabel eCurRandomBattleFolder, 0x2003f50
+	.definelabel PatchCustMenuMainInputPointerLocation, 0x8026AA8
 
 	; version-independent game functions
 	.definelabel ClearEventFlagRangeFromImmediate, 0x802f1a8
@@ -51,8 +53,19 @@
 	.definelabel GetPositiveSignedRNG1, 0x8001562
 	.definelabel SetNaviStatsByte, 0x80136f0
 	.definelabel eNaviStats, 0x20047cc
+	.definelabel CustMenuMainInput, 0x8026CCC
+	.definelabel GetBattleEffects, 0x802d246
+	.definelabel GetBattleNaviStatsByte, 0x80136cc
 
+	; .definelabel OpponentFolderNameBuffer, 0x203f7f4
+
+	; .definelabel Folder1
 	; version-specific game functions
 	.vdefinelabel chatbox_runScript, 0x8040384, 0x8040358
 	.vdefinelabel StartBattleGeneric, 0x80990b8, 0x809a5f0
 	.vdefinelabel NPCScript_StationaryNPC, 0x809f6cc, 0x80a0bac
+
+	; new memory
+	.definelabel eFolderNameBuffer, 0x203f7f0
+	.definelabel eCurRandomBattleFolder, 0x2003f50
+

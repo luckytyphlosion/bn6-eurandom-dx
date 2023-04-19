@@ -21,6 +21,11 @@
 	.definelabel oNaviStats_Folder2Tag2, 0x59
 	.definelabel oNaviStats_ChipShuffle, 0x60
 
+	.definelabel oToolkit_JoypadPtr, 4
+	.definelabel oToolkit_BattleStatePtr, 0x18
+	.definelabel oToolkit_ChatboxPtr, 0x2c
+	.definelabel oBattleState_NetworkSide, 0xd
+
 	.definelabel GROUP_ACDC_TOWN, 0x0
 	.definelabel MAP_ACDC_TOWN, 0x0
 

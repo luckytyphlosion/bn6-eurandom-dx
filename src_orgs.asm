@@ -76,14 +76,17 @@ Hook_PatchMainMapLoop_Return:
 	mov r1, oNaviStats_FolderIndex
 	bl SetNaviStatsByte
 	pop r4-r7,lr
-
 	.pool
 
-	push r4,r5,lr
-	mov r4, r0
-	mov r1, oNaviStats_FolderIndex
-	ldrb r5, [r4, r1]
-	
+	.org PatchCustMenuMainInputPointerLocation
+	.word Hook_PatchCustMenuMainInput|1
+
+	.org PatchPrintBufferedStringNumBytesCopied
+	mov r2, 5
+
+	.org PatchPrintBufferedStringTerminator
+	mov r2, 0xe5
+	strb r2, [r0, 6]
 
 	.org BaseNaviStatsTable+10
 	.byte 0 ; no b+left
