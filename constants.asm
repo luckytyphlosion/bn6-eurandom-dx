@@ -13,6 +13,12 @@
 	.definelabel oNaviStats_AirShoes, 0x1c
 	.definelabel oNaviStats_UnderShirt, 0x1d
 	.definelabel oNaviStats_SuperArmor, 0x23
+	.definelabel oNaviStats_FolderIndex, 0x25 ; replaces humor
+	.definelabel oNaviStats_Folder1Reg, 0x2e
+	.definelabel oNaviStats_Folder1Tag1, 0x56
+	.definelabel oNaviStats_Folder1Tag2, 0x57
+	.definelabel oNaviStats_Folder2Tag1, 0x58
+	.definelabel oNaviStats_Folder2Tag2, 0x59
 	.definelabel oNaviStats_ChipShuffle, 0x60
 
 	.definelabel GROUP_ACDC_TOWN, 0x0
@@ -360,3 +366,31 @@
 	.definelabel CROSSDIV, 0x134
 	.definelabel HUBBATC, 0x135
 	.definelabel BGDTHTHD, 0x136
+
+	.definelabel CODE_A, 0
+	.definelabel CODE_B, 1
+	.definelabel CODE_C, 2
+	.definelabel CODE_D, 3
+	.definelabel CODE_E, 4
+	.definelabel CODE_F, 5
+	.definelabel CODE_G, 6
+	.definelabel CODE_H, 7
+	.definelabel CODE_I, 8
+	.definelabel CODE_J, 9
+	.definelabel CODE_K, 10
+	.definelabel CODE_L, 11
+	.definelabel CODE_M, 12
+	.definelabel CODE_N, 13
+	.definelabel CODE_O, 14
+	.definelabel CODE_P, 15
+	.definelabel CODE_Q, 16
+	.definelabel CODE_R, 17
+	.definelabel CODE_S, 18
+	.definelabel CODE_T, 19
+	.definelabel CODE_U, 20
+	.definelabel CODE_V, 21
+	.definelabel CODE_W, 22
+	.definelabel CODE_X, 23
+	.definelabel CODE_Y, 24
+	.definelabel CODE_Z, 25
+	.definelabel CODE_ASTERISK, 26

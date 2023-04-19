@@ -17,6 +17,9 @@
 	.vdefinelabel LButtonCutsceneScriptAddr, 0x80991f4, 0x809a72c
 	.vdefinelabel PatchPackFolderSwitch, 0x8133E3C, 0x8135c18
 	.vdefinelabel PatchFolderSelectChip, 0x8134A3C, 0x8136818
+	.vdefinelabel PatchGiveFolder, 0x8137718, 0x81394f4
+	GiveFolder equ PatchGiveFolder
+	.vdefinelabel FolderTablePoolAddr, 0x8137864, 0x8139640
 
 	; version-independent patch defines
 	.definelabel PatchLoadBaseNaviHP, 0x8013b80
@@ -33,6 +36,7 @@
 	.definelabel StartingMapAddr, 0x80050e4
 	.definelabel BaseNaviStatsTable, 0x80210DD
 	.definelabel ChipInfo, 0x8021da8
+	.definelabel StartingFolder, 0x80213ac
 	CHIP_INFO_LOAD_ADDR equ 0x21da8
 
 	.definelabel eCurRandomBattleFolder, 0x2003f50
@@ -44,6 +48,7 @@
 	.definelabel clearCutsceneScriptPosIfMagicValue0x1_8036F24, 0x8036f24
 	.definelabel sub_8034BB8, 0x8034bb8
 	.definelabel GetPositiveSignedRNG1, 0x8001562
+	.definelabel SetNaviStatsByte, 0x80136f0
 
 	; version-specific game functions
 	.vdefinelabel chatbox_runScript, 0x8040384, 0x8040358

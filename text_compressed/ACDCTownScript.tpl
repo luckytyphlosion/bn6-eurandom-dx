@@ -40,7 +40,7 @@ script 0 mmbn6 {
   clearMsg
 
   """
-  TODO.
+  github.com/luckytyphlosion/bn6-eurandom-dx
   """
   keyWait
     any = false

@@ -73,7 +73,34 @@ Hook_PatchLoadOtherBaseNaviStats:
 	ldr r0, =LoadOtherBaseNaviStats_StartingAtBLeftAbility|1
 	bx r0
 
+GiveRandomFolder:
+	push r4-r7,lr
+	ldrb r2, [r5,8] ; folder index
+	ldr r0, =eCurRandomBattleFolder
+	strb r2, [r0]
+	mov r0, 0x01
+	ldr r1, =GiveFolder|1
+	mov lr, pc
+	bx r1
+	mov r1, oNaviStats_Folder1Reg
+	mov r2, 0xff
+	bl SetMegaManNaviStatsByte_longcall
+	mov r1, oNaviStats_Folder1Tag1
+	mov r2, 0xff
+	bl SetMegaManNaviStatsByte_longcall
+	mov r1, oNaviStats_Folder1Tag2
+	mov r2, 0xff
+	bl SetMegaManNaviStatsByte_longcall
+	mov r0, 0
+	pop r4-r7,lr
+
+SetMegaManNaviStatsByte_longcall:
+	mov r0, 0
+	ldr r3, =SetNaviStatsByte|1
+	bx r3
+
 	.pool
+
 
 ACDCTown_OnInitMapScript_NEW:
 	ms_jump_if_flag_set CS_VAR_IMM, EVENT_402, @@alreadyInitialized
@@ -115,12 +142,9 @@ PatchLButtonCutsceneScript:
 	cs_set_event_flag CS_VAR_IMM, 0x1731
 	cs_write_ow_player_fixed_anim_select_8037dac CS_VAR_IMM, 0x4
 	cs_decomp_text_archive ChooseRandomBattleFolderTextScript
-	cs_set_var 4, 0
-	cs_set_var 5, 0
-	cs_set_var 6, 0
-	cs_set_var 7, 0
 	cs_run_text_script CS_VAR_IMM, 0
 	cs_wait_chatbox 0x80
+	cs_jump_if_var_equal 9, 1, @@abortedFolderSelection
 ; @@loop:
 ; 	cs_wait_var_equal 8, 1 ; wait for cross to be selected
 ; 	cs_jump_if_var_equal 9, 1, @@abortedCrossSelection
@@ -135,6 +159,8 @@ PatchLButtonCutsceneScript:
 ; 	cs_wait_chatbox 0x80
 ; 	cs_call_native_with_return_value WriteCrossesToCrossList|1
 ; @@finishCutscene:
+	cs_call_native_with_return_value GiveRandomFolder|1	
+@@abortedFolderSelection:
 	cs_ow_player_sprite_special_with_arg 0x4, CS_VAR_IMM, 0x4
 	cs_write_ow_player_fixed_anim_select_8037dac CS_VAR_IMM, 0x4
 	cs_unlock_player_after_non_npc_dialogue_809e122
@@ -263,3 +289,5 @@ BgDthThdChipImage:
 BgDthThdChipPalette:
 	import_chip_palette BGDTHTHD
 	.endif
+
+	.include "gen_folder/folders.asm"

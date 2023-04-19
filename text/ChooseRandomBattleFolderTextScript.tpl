@@ -15,6 +15,10 @@ script 0 mmbn6 {
   Choose the random battle
   folder!
   """
+  storeTimer
+    timer = 1
+    value = 0
+
   keyWait
     any = false
   clearMsg
@@ -205,6 +209,10 @@ script 1 mmbn6 {
   Cancelled choosing
   random battle folder.
   """
+  storeTimer
+    timer = 1
+    value = 1
+
   keyWait
     any = false
   end

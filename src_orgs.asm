@@ -65,23 +65,38 @@ Hook_PatchMainMapLoop_Return:
 	ldr r0, =Hook_PatchLoadOtherBaseNaviStats|1
 	bx r0
 	.pool
-
 	.endarea
+
+	; .org
+	; push r4,r5,lr
+	; mov r4, r0
+	; mov r1, oNaviStats_FolderIndex
+	; ldrb r5, [r4, r1]
+	; 
 
 	.org BaseNaviStatsTable+10
 	.byte 0 ; no b+left
 
 	; prevent folder editing
-	; .org PatchPackFolderSwitch
-	; mov r0, 1
-	; tst r0, r0
-	; mov pc, lr
-	; 
-	; ; prevent chip selection
-	; .org PatchFolderSelectChip
-	; mov r0, 0
-	; tst r0, r0
-	; mov pc, lr
+	.org PatchPackFolderSwitch
+	mov r0, 1
+	tst r0, r0
+	mov pc, lr
+	
+	; prevent chip selection
+	.org PatchFolderSelectChip
+	mov r0, 0
+	tst r0, r0
+	mov pc, lr
+
+	; give folder modifications
+	; folder index is in r2 now
+	.org PatchGiveFolder+8
+	mov r0, r2
+	nop
+
+	.org FolderTablePoolAddr
+	.word FolderTable_NEW
 
 	; unbiased shuffling
 	.org PatchShuffleFolderSlice
