@@ -6,6 +6,7 @@
 	.include "include/bytecode/cutscene_camera_script.inc"
 	.include "include/bytecode/npc_script.inc"
 	.include "include/bytecode/gfx_anim_script.inc"
+	.include "bbn6/macros.asm"
 
 	.macro movflag, flag16
 	mov r0, (flag16 >> 8)

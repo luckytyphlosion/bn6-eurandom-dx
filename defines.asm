@@ -5,6 +5,8 @@
 	OUTPUT_ROM equ vequ("bn6f-random-battle.gba", "bn6g-random-battle.gba")
 	.definelabel fspace, 0x087FE36C
 
+	.vinclude "bbn6/bn6f_addr.asm", "bbn6/bn6g_addr.asm"
+
 	; version-specific patch defines
 	.vdefinelabel ACDCTownMapTextPtrAddr, 0x80445e0, 0x80445b0
 	.vdefinelabel PatchLoadShopData, 0x8048C98, 0x8048c38

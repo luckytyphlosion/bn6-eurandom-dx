@@ -23,4 +23,12 @@
 		.endif
 	.endmacro
 
+	.macro .vinclude, cf_file, cg_file
+		.if IS_FALZAR == 1
+			.include cf_file
+		.else
+			.include cg_file
+		.endif
+	.endmacro
+
 	.expfunc vequ(cf_value, cg_value), IS_FALZAR == 1 ? cf_value : cg_value
