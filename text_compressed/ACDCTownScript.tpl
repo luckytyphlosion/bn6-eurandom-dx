@@ -31,6 +31,15 @@ script 0 mmbn6 {
   clearMsg
 
   """
+  Note that AreaGrab
+  and PanlGrab reg
+  are not allowed.
+  """
+  keyWait
+    any = false
+  clearMsg
+
+  """
   And for those interested,
   the source code for this
   patch can be found at:
@@ -40,7 +49,7 @@ script 0 mmbn6 {
   clearMsg
 
   """
-  github.com/luckytyphlosion/bn6-eurandom-dx
+  bit.ly/EurandomDX
   """
   keyWait
     any = false

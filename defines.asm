@@ -9,7 +9,7 @@
 
 	; version-specific patch defines
 	.vdefinelabel ACDCTownMapTextPtrAddr, 0x80445e0, 0x80445b0
-	.vdefinelabel PatchLoadShopData, 0x8048C98, 0x8048c38
+	.vdefinelabel PatchLoadShopData, 0x8048C98, 0x8048c68
 	.vdefinelabel ACDCTownGroup_MapObjectTables, 0x804CF9C, 0x804de20
 	.vdefinelabel ACDCTown_OnInitMapScripts, 0x804d0a4, 0x804df28
 	.vdefinelabel ACDCTown_ContinuousMapScripts, 0x804d0ac, 0x804df30
