@@ -256,9 +256,9 @@ class ChipWeights(collections.defaultdict):
         return {item: weight.weight for item, weight in self.items()}
 
 class GenFolder:
-    __slots__ = ("chip_db", "chip_game_info", "chosen_pas", "folder", "all_non_pa_chips_by_name", "num_megas", "num_pseudo_megas", "num_gigas", "all_chips_by_name", "splay_codes", "chip_weights_log", "input_chips_filename", "print_stats", "chip_usage_stats", "add_lifeaur", "all_pa_chips_by_name")
+    __slots__ = ("chip_db", "chip_game_info", "chosen_pas", "folder", "all_non_pa_chips_by_name", "num_megas", "num_pseudo_megas", "num_gigas", "all_chips_by_name", "splay_codes", "chip_weights_log", "input_chips_filename", "print_stats", "chip_usage_stats", "add_lifeaur", "all_pa_chips_by_name", "force_pa_1", "force_pa_2", "force_initial_gen")
 
-    def __init__(self, sorted_chips_filename, chip_game_info_filename, output_filename, seed, input_chips_filename, print_stats):
+    def __init__(self, sorted_chips_filename, chip_game_info_filename, output_filename, seed, input_chips_filename, print_stats, force_pa_1, force_pa_2, force_initial_gen):
         global random
         if seed is None:
             seed = randomlib.randint(0, 10000000000)
@@ -274,6 +274,9 @@ class GenFolder:
         self.chip_weights_log = ""
         self.input_chips_filename = input_chips_filename
         self.print_stats = print_stats
+        self.force_pa_1 = force_pa_1
+        self.force_pa_2 = force_pa_2
+        self.force_initial_gen = force_initial_gen
 
         #random.seed(4444)
         with open(chip_game_info_filename, "r") as f:
@@ -289,8 +292,10 @@ class GenFolder:
             self.chosen_pas = []
             self.splay_codes = True
 
-            if self.input_chips_filename is None:
+            if self.input_chips_filename is None and self.force_pa_1 is None:
                 self.__gen_pas()
+            elif self.force_pa_1 is not None:
+                self.__force_pas()
 
             self.__todo_algo1()
             output = self.folder.output_ungrouped_folder()
@@ -337,6 +342,7 @@ class GenFolder:
         )
 
         dump_noref_yaml(self.all_chips_by_name, "all_chips_by_name.yml")
+        #dump_noref_yaml(self.all_chips_by_name, "all_pa_chips_by_name.yml")
 
     def __gen_pas(self):
         pa_type = weighted_random({
@@ -396,6 +402,35 @@ class GenFolder:
             except Exception as e:
                 raise RuntimeError(f"chosen_pa_1_name: {chosen_pa_1_name}, chosen_pa_2['name']: {chosen_pa_2['name']}")
         #print(self.folder)
+
+    def __force_pas(self):
+        self.__force_pa(self.force_pa_1)
+        if self.force_pa_2 is not None:
+            self.__force_pa(self.force_pa_2)
+
+    def __force_pa(self, pa_name):
+        
+        if pa_name[-1].isdigit():
+            pa_index = int(pa_name[-1]) - 1
+            pa_name = pa_name[:-1]
+        else:
+            pa_index = None
+
+        found_pa_chips = []
+        pa_chips = self.query_db(
+            category_names=("programAdvances",),
+        )
+
+        for pa_chip in pa_chips:
+            if pa_chip["name"] == pa_name:
+                found_pa_chips.append(pa_chip)
+
+        if pa_index is not None:
+            chosen_pa = found_pa_chips[pa_index]
+        else:
+            chosen_pa = random.choice(found_pa_chips)
+
+        self.add_pa(chosen_pa)
 
     def __add_input_chips(self):
         ADDING_PAS = 0
@@ -539,9 +574,14 @@ class GenFolder:
         self.num_pseudo_megas = weighted_random({0: 0.8, 1: 0.2})
         self.num_gigas = 1
 
+        do_initial_gen = True
+
         if self.input_chips_filename is not None:
             self.__add_input_chips()
-        else:
+            if not self.force_initial_gen:
+                do_initial_gen = False
+
+        if do_initial_gen:
             if len(self.chosen_pas) == 1:
                 self.initial_chip_pick_common("ranged", 2,
                     {"highChips": 1.0},
@@ -1453,7 +1493,17 @@ class GenFolder:
                 
                 #output += "".join(f"- {chip_code}: {len(chip_code_folder_filenames)/chip_codes_total_codes:.2f} ({len(chip_code_folder_filenames)}/{chip_codes_total_codes}) (mul: {chip_usage_stats.chip_usages.get(chip_name + ' ' + chip_code, GenFolder.null_chip_usage).z_score_multiplier:.4f}) [{', '.join(sorted(set(chip_code_folder_filenames)))}]\n" for chip_code, chip_code_folder_filenames in sorted_chip_codes_usage_stats_stats_counter)
                 output += "".join(f"- {chip_code}: {len(chip_code_folder_filenames)/chip_codes_total_codes:.2f} ({len(chip_code_folder_filenames)}/{chip_codes_total_codes}) (mul: {chip_usage_stats.chip_usages.get(chip_name + ' ' + chip_code, GenFolder.null_chip_usage).z_score_multiplier:.4f})\n" for chip_code, chip_code_folder_filenames in sorted_chip_codes_usage_stats_stats_counter)
-    
+
+            output += "\n"
+            output += "== Giga usage stats ==\n"
+            for chip_name, chip_codes_usage_stats in sorted_non_pa_usage_stats:
+                chip_data = self.all_chips_by_name.get(chip_name)
+                if chip_data is not None and chip_data["category"] == "gigaChips":
+                    chip_codes_total_codes = len(chip_codes_usage_stats.folder_filenames)
+                    sorted_chip_codes_usage_stats_stats_counter = sorted(chip_codes_usage_stats.stats.items(), key=functools.cmp_to_key(GenFolder.__chip_usage_stats_sort_func))
+                    output += f"{chip_name}: {chip_codes_total_codes/total_non_pas:.2f} ({chip_codes_total_codes}/{total_non_pas})\n"
+                    output += "".join(f"- {chip_code}: {len(chip_code_folder_filenames)/chip_codes_total_codes:.2f} ({len(chip_code_folder_filenames)}/{chip_codes_total_codes}) (mul: {chip_usage_stats.chip_usages.get(chip_name + ' ' + chip_code, GenFolder.null_chip_usage).z_score_multiplier:.4f})\n" for chip_code, chip_code_folder_filenames in sorted_chip_codes_usage_stats_stats_counter)
+
             output += "\n"
             output += "== Non-found non-PA chips ==\n"
             output += "\n".join(sorted(all_nonfound_chips)) + "\n"
@@ -1474,10 +1524,13 @@ def main():
     ap.add_argument("-s", "--seed", dest="seed", default=None, type=int, help="Seed to use for folder generation.")
     ap.add_argument("-p", "--print-stats", dest="print_stats", action="store_true", help="Whether to print chip usage stats.")
     ap.add_argument("-i", "--input-chips_filename", dest="input_chips_filename", default=None, help="Manual input chips to use for folder generation. Format is list of PAs on a new line separated by --- (and new line) separated by list of chips.")
+    ap.add_argument("-p1", "--force-pa-1", dest="force_pa_1", default=None, help="Force PA 1.")
+    ap.add_argument("-p2", "--force-pa-2", dest="force_pa_2", default=None, help="Force PA 2")
+    ap.add_argument("-fi", "--force-initial-gen", dest="force_initial_gen", action="store_true", help="Force initial gen.")
 
     args = ap.parse_args()
 
-    GenFolder("sorted_chips.yml", "bn6_chips.json", args.output_filename, args.seed, args.input_chips_filename, args.print_stats)
+    GenFolder("sorted_chips.yml", "bn6_chips.json", args.output_filename, args.seed, args.input_chips_filename, args.print_stats, args.force_pa_1, args.force_pa_2, args.force_initial_gen)
 
 if __name__ == "__main__":
     main()

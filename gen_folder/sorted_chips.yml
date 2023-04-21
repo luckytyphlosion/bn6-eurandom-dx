@@ -674,15 +674,16 @@ nonAttacking:
       counter: [grabback]
   - GrabBnsh:
       chips:
-        - GrabRvng IQZ
+        - GrabBnsh BMS        
       dimming: true
+      maxCount: 1
       effect: [grabback]
       necessity: [area]
       ignoreCodeLimit: true
       counter: [AntiDmg, Barr200, LifeAur]
   - GrabRvng:
       chips:
-        - GrabBnsh BMS
+        - GrabRvng IQZ
       dimming: true
       effect: [grabback]
       necessity: [area]
