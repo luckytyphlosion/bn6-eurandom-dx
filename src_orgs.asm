@@ -36,11 +36,11 @@
 	.org PatchCanJackIn
 	b CanJackIn_Failure
 
-; 	.org PatchMainMapLoop
-; 	ldr r0, =Hook_PatchMainMapLoop|1
-; 	bx r0
-; 	.pool
-; 	nop
+ 	.org PatchMainMapLoop
+ 	ldr r0, =Hook_PatchMainMapLoop|1
+ 	bx r0
+ 	.pool
+ 	nop
 Hook_PatchMainMapLoop_Return:
 
 	.org PatchInitNewGameData
@@ -117,6 +117,9 @@ Hook_PatchAfterCheckMBForRegChip_Return:
 
 	.org FolderTablePoolAddr
 	.word FolderTable_NEW
+
+	; .org 0x8036e5c
+	; b 0x8036e6e
 
 	; unbiased shuffling
 	.org PatchShuffleFolderSlice
