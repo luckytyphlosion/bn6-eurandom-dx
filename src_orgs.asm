@@ -95,7 +95,7 @@ Hook_PatchMainMapLoop_Return:
 Hook_PatchAfterCheckMBForRegChip_Return:
 
 	.org BaseNaviStatsTable+10
-	.byte 0 ; no b+left
+	.byte 0xff ; no b+left
 
 	; prevent folder editing
 	.org PatchPackFolderSwitch
