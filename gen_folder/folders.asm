@@ -1136,8 +1136,8 @@ Folder_33:
 	chip_and_code SNCTUARY, CODE_Z
 	chip_and_code AIRRAID3, CODE_Z
 	chip_and_code BASS, CODE_F
-	chip_and_code HICANNON, CODE_ASTERISK
-	chip_and_code HICANNON, CODE_ASTERISK
+	chip_and_code ICESEED, CODE_ASTERISK
+	chip_and_code ICESEED, CODE_ASTERISK
 	chip_and_code BLZRDBAL, CODE_T
 	chip_and_code BLZRDBAL, CODE_T
 	chip_and_code RSKYHNY1, CODE_G
